@@ -19,8 +19,6 @@
 Ajoutez dans votre fichier `.env.local` :
 
 ```env
-GOOGLE_CLIENT_ID=your_google_client_id_here
-GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
 ```
 

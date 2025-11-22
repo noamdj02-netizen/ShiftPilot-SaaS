@@ -97,3 +97,18 @@ logs
 # pnpm-lock.yaml
 # yarn.lock
 # package-lock.json
+
+# Environment files (keep .env.example)
+.env
+.env.local
+.env.development
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Reports and temporary documentation
+RAPPORT_*.md
+*_REPORT.md
+*_PROGRESS.md

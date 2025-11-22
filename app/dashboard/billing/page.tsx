@@ -125,6 +125,7 @@ export default function BillingPage() {
               </div>
             </CardContent>
           </Card>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -280,6 +281,7 @@ export default function BillingPage() {
             </div>
           </CardContent>
         </Card>
+        </motion.div>
       </motion.div>
     </div>
   )

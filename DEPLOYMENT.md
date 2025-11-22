@@ -45,8 +45,6 @@ TWILIO_ACCOUNT_SID=votre-sid
 TWILIO_AUTH_TOKEN=votre-token
 
 # OAuth (optionnel)
-GOOGLE_CLIENT_ID=votre-client-id
-GOOGLE_CLIENT_SECRET=votre-client-secret
 
 # Push Notifications
 VAPID_PUBLIC_KEY=votre-cle-publique

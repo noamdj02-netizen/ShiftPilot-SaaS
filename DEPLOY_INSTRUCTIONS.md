@@ -64,13 +64,11 @@ Après avoir créé votre projet sur Vercel, allez dans **Settings → Environme
 ### 🔐 Authentification
 ```
 NEXTAUTH_URL=https://votre-domaine.vercel.app
-NEXTAUTH_SECRET=DiHune+HVn0QfE0d3ImSG+GOkv1TfzNZG3Jz89NHJz8=
+NEXTAUTH_SECRET=your-nextauth-secret-here
 ```
 
 ### 🟦 Google OAuth
 ```
-GOOGLE_CLIENT_ID=398816469998-gofsctocpdt9t6i49p9oluirrmrmgrg9.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
 GOOGLE_REDIRECT_URI=https://votre-domaine.vercel.app/api/auth/google/callback
 ```
 
@@ -79,7 +77,7 @@ GOOGLE_REDIRECT_URI=https://votre-domaine.vercel.app/api/auth/google/callback
 
 ### 📧 Email (Resend)
 ```
-RESEND_API_KEY=re_CUBV2KAW_NNP9gbLy6ixZduRX1i7PrZRi
+RESEND_API_KEY=your-resend-api-key-here
 EMAIL_FROM=ShiftPilot <noreply@noam.dev>
 ```
 

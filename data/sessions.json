@@ -1,12 +1,3 @@
-[
-  {
-    "id": "1763788624724",
-    "userId": "1",
-    "token": "ZGVtb0BzaGlmdHBpbG90LmNvbToxNzYzNzg4NjI0NzE0OjE=",
-    "ipAddress": "::1",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
-    "createdAt": "2025-11-22T05:17:04.724Z",
-    "lastActiveAt": "2025-11-22T05:17:04.724Z",
-    "expiresAt": "2025-12-22T05:17:04.724Z"
-  }
-]
+version https://git-lfs.github.com/spec/v1
+oid sha256:5c90fe542737c6a6dc3e9042d0075bd90b59c7dbdfafb30c157c76173de48ab0
+size 415

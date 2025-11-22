@@ -72,8 +72,6 @@ npm install twilio
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # OAuth Google (optionnel - fonctionne en mode dev sans config)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
 
 # OAuth Apple (optionnel - fonctionne en mode dev sans config)

@@ -2,7 +2,7 @@ import { type NextRequest } from "next/server"
 import { createErrorResponse, createSuccessResponse, checkRateLimit } from "@/lib/api-utils"
 import { requireAuth } from "@/lib/auth"
 import { getScheduleById, getEmployees } from "@/lib/db"
-import { readAvailabilities } from "../availability/route"
+import { readAvailabilities } from "@/app/api/availability/route"
 import { z } from "zod"
 
 const optimizeSchema = z.object({

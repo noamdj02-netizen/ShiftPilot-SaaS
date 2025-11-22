@@ -60,8 +60,6 @@ Créez un fichier `.env.local` à la racine du projet :
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 # OAuth Google (optionnel - mode dev fonctionne sans)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
 
 # OAuth Apple (optionnel - mode dev fonctionne sans)

@@ -40,11 +40,9 @@ git push -u origin main
 
 ```
 NEXTAUTH_URL=https://votre-projet.vercel.app
-NEXTAUTH_SECRET=DiHune+HVn0QfE0d3ImSG+GOkv1TfzNZG3Jz89NHJz8=
-GOOGLE_CLIENT_ID=398816469998-gofsctocpdt9t6i49p9oluirrmrmgrg9.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
+NEXTAUTH_SECRET=your-nextauth-secret-here
 GOOGLE_REDIRECT_URI=https://votre-projet.vercel.app/api/auth/google/callback
-RESEND_API_KEY=re_CUBV2KAW_NNP9gbLy6ixZduRX1i7PrZRi
+RESEND_API_KEY=your-resend-api-key-here
 EMAIL_FROM=ShiftPilot <noreply@noam.dev>
 NEXT_PUBLIC_APP_NAME=ShiftPilot
 NEXT_PUBLIC_APP_URL=https://votre-projet.vercel.app
