@@ -160,81 +160,140 @@ export default function AnalyticsPage() {
         {/* C) Charts Section */}
         <div className="grid lg:grid-cols-2 gap-6">
           {/* 1. Active Users Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Utilisateurs Actifs</CardTitle>
-              <CardDescription>Évolution des utilisateurs actifs sur les 30 derniers jours</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ActiveUsersChart data={data.chartData.activeUsers} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Utilisateurs Actifs</CardTitle>
+                <CardDescription>Évolution des utilisateurs actifs sur les 30 derniers jours</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ActiveUsersChart data={data.chartData.activeUsers} />
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* 2. Revenue Trend Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Tendance des Revenus</CardTitle>
-              <CardDescription>Évolution des revenus récurrents mensuels (MRR)</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RevenueChart data={data.chartData.revenue} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Tendance des Revenus</CardTitle>
+                <CardDescription>Évolution des revenus récurrents mensuels (MRR)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RevenueChart data={data.chartData.revenue} />
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* 3. Feature Usage Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Utilisation des Fonctionnalités</CardTitle>
-              <CardDescription>Top 5 des fonctionnalités les plus utilisées</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <FeatureUsageChart data={data.chartData.featureUsage} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Utilisation des Fonctionnalités</CardTitle>
+                <CardDescription>Top 5 des fonctionnalités les plus utilisées</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <FeatureUsageChart data={data.chartData.featureUsage} />
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* 4. Acquisition Channel Chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Canaux d'Acquisition</CardTitle>
-              <CardDescription>Distribution des nouveaux utilisateurs par source</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AcquisitionChart data={data.chartData.acquisition} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Canaux d'Acquisition</CardTitle>
+                <CardDescription>Distribution des nouveaux utilisateurs par source</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <AcquisitionChart data={data.chartData.acquisition} />
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         {/* D) Tables Section */}
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Top Users Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Utilisateurs</CardTitle>
-              <CardDescription>Utilisateurs les plus actifs</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TopUsersTable users={data.topUsers} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Top Utilisateurs</CardTitle>
+                <CardDescription>Utilisateurs les plus actifs</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TopUsersTable users={data.topUsers} />
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* Recent Transactions Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Transactions Récentes</CardTitle>
-              <CardDescription>Historique des dernières transactions</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TransactionsTable transactions={data.transactions as any} />
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Transactions Récentes</CardTitle>
+                <CardDescription>Historique des dernières transactions</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TransactionsTable transactions={data.transactions as any} />
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         {/* E) Extra Widgets Section */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <ChurnPredictionWidget prediction={data.widgets.churnPrediction} />
-          <MRRForecastWidget forecast={data.widgets.mrrForecast} />
-          <RetentionCohortWidget cohorts={(data as any).cohorts || []} />
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, type: "spring", stiffness: 100 }}
+          className="grid md:grid-cols-3 gap-6"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.0, type: "spring" }}
+          >
+            <ChurnPredictionWidget prediction={data.widgets.churnPrediction} />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.1, type: "spring" }}
+          >
+            <MRRForecastWidget forecast={data.widgets.mrrForecast} />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, type: "spring" }}
+          >
+            <RetentionCohortWidget cohorts={(data as any).cohorts || []} />
+          </motion.div>
+        </motion.div>
       </motion.div>
     </div>
   )

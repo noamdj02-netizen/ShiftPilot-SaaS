@@ -112,9 +112,9 @@ export default function SecuritySettingsPage() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-foreground">
             <Shield className="h-5 w-5" />
             Sécurité du compte
           </CardTitle>
@@ -127,7 +127,7 @@ export default function SecuritySettingsPage() {
                 <Lock className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="font-medium">Mot de passe</p>
+                <p className="font-medium text-foreground">Mot de passe</p>
                 <p className="text-sm text-muted-foreground">Dernière modification il y a 3 mois</p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function SecuritySettingsPage() {
                 <Smartphone className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="font-medium">Authentification à deux facteurs</p>
+                <p className="font-medium text-foreground">Authentification à deux facteurs</p>
                 <p className="text-sm text-muted-foreground">Ajoutez une couche de sécurité supplémentaire</p>
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function SecuritySettingsPage() {
                 <Key className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="font-medium">Clés API</p>
+                <p className="font-medium text-foreground">Clés API</p>
                 <p className="text-sm text-muted-foreground">Gérez vos clés API pour l'intégration</p>
               </div>
             </div>
@@ -186,11 +186,11 @@ export default function SecuritySettingsPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Sessions actives</CardTitle>
+              <CardTitle className="text-foreground">Sessions actives</CardTitle>
               <CardDescription>Voir et gérer vos sessions actives</CardDescription>
             </div>
             {sessions.length > 1 && (

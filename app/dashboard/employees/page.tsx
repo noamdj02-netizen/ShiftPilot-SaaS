@@ -13,11 +13,17 @@ export default function EmployeesPage() {
   const [roleFilter, setRoleFilter] = useState("all")
   const [statusFilter, setStatusFilter] = useState("active")
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-6">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-3 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl" />
+      </div>
+      
+      <main className="container mx-auto px-4 py-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 100 }}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6"
         >
           <div>

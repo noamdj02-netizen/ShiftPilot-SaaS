@@ -69,9 +69,9 @@ export default function ProfileSettingsPage() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>Profil personnel</CardTitle>
+          <CardTitle className="text-foreground">Profil personnel</CardTitle>
           <CardDescription>Gérez vos informations personnelles</CardDescription>
         </CardHeader>
         <CardContent>

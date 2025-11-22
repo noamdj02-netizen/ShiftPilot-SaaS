@@ -5,8 +5,9 @@ import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MoreVertical, Mail, Phone, Edit, Trash2, Award, Loader2, Eye } from "lucide-react"
+import { MoreVertical, Mail, Phone, Edit, Trash2, Award, Loader2, Eye, Key } from "lucide-react"
 import Link from "next/link"
+import { GenerateCredentials } from "./generate-credentials"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -249,11 +250,12 @@ export function EmployeeList({ searchQuery = "", roleFilter = "all", statusFilte
         return (
           <motion.div
             key={employee.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: index * 0.05, type: "spring", stiffness: 100 }}
+            whileHover={{ y: -2, scale: 1.01, transition: { duration: 0.2 } }}
           >
-            <Card className="p-6 hover:shadow-lg transition-all border-border">
+            <Card variant="glass" className="p-6 hover:shadow-xl transition-all duration-300 border-border/50 backdrop-blur-md group">
               <div className="flex items-start gap-4">
                 <Avatar className="h-14 w-14 bg-primary">
                   <AvatarFallback className="text-lg font-semibold bg-primary text-primary-foreground">
@@ -331,6 +333,30 @@ export function EmployeeList({ searchQuery = "", roleFilter = "all", statusFilte
                         <span className="text-muted-foreground">Taux horaire: </span>
                         <span className="font-semibold text-foreground">{employee.hourlyRate}€</span>
                       </div>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 pt-4 border-t border-border/50 mt-4">
+                    <GenerateCredentials
+                      employee={{
+                        id: employee.id,
+                        firstName: employee.firstName,
+                        lastName: employee.lastName,
+                        email: employee.email || "",
+                        role: employee.role,
+                        phone: employee.phone,
+                      }}
+                      onCredentialsGenerated={(credentials) => {
+                        // Optionally update employee list or show success
+                        toast.success(`Identifiants générés pour ${employee.firstName} ${employee.lastName}`)
+                      }}
+                    />
+                    {employee.email && (
+                      <Badge variant="outline" className="bg-accent-green/10 text-accent-green border-accent-green/20">
+                        <Key className="h-3 w-3 mr-1" />
+                        Identifiants activés
+                      </Badge>
                     )}
                   </div>
                 </div>

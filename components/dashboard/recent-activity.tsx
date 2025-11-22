@@ -45,9 +45,9 @@ const activities = [
 
 export function RecentActivity() {
   return (
-    <Card>
+    <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Activité récente</CardTitle>
+        <CardTitle className="text-foreground">Activité récente</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -58,9 +58,18 @@ export function RecentActivity() {
                 key={activity.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.3 }}
-                whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                className="flex gap-4 group cursor-pointer"
+                transition={{ 
+                  delay: index * 0.08, 
+                  type: "spring", 
+                  stiffness: 200, 
+                  damping: 20 
+                }}
+                whileHover={{ 
+                  x: 4, 
+                  scale: 1.01,
+                  transition: { duration: 0.2 } 
+                }}
+                className="flex gap-4 group cursor-pointer p-2 rounded-lg hover:bg-muted/30 transition-colors"
               >
                 <motion.div
                   className={`flex-shrink-0 w-10 h-10 rounded-full ${activity.bgColor} flex items-center justify-center transition-colors group-hover:scale-110`}

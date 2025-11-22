@@ -26,7 +26,7 @@ export function DemoSection() {
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          <Card className="border-2 border-border overflow-hidden">
+          <Card variant="glass" className="border-2 border-border/50 overflow-hidden shadow-2xl backdrop-blur-md hover:shadow-3xl transition-shadow duration-300">
             <div className="bg-muted/50 p-4 border-b border-border flex gap-2">
               {[
                 { id: "calendar", label: "Calendrier", icon: Calendar },

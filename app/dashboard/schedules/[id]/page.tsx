@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { CalendarView } from "@/components/schedules/calendar-view"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Edit, Download, Send, Loader2, CheckCircle, AlertCircle, Lock, Unlock } from "lucide-react"
+import { ArrowLeft, Edit, Download, Send, Loader2, CheckCircle, AlertCircle, Lock, Unlock, Copy, FileText } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
@@ -28,6 +28,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useRouter } from "next/navigation"
+import { OptimizationPanel } from "@/components/dashboard/optimization-panel"
+import { ShiftExchangeRequest } from "@/components/shifts/shift-exchange-request"
 
 interface Schedule {
   id: string
@@ -45,6 +47,8 @@ export default function ScheduleDetailPage({ params }: { params: Promise<{ id: s
   const [isLoading, setIsLoading] = useState(true)
   const [isPublishing, setIsPublishing] = useState(false)
   const [isUnpublishing, setIsUnpublishing] = useState(false)
+  const [isDuplicating, setIsDuplicating] = useState(false)
+  const [isSavingTemplate, setIsSavingTemplate] = useState(false)
   const [scheduleId, setScheduleId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -128,6 +132,61 @@ export default function ScheduleDetailPage({ params }: { params: Promise<{ id: s
       toast.error(errorMessage)
     } finally {
       setIsPublishing(false)
+    }
+  }
+
+  const handleDuplicate = async () => {
+    if (!schedule) return
+
+    try {
+      setIsDuplicating(true)
+      const res = await fetch(`/api/schedules/${schedule.id}/duplicate`, {
+        method: "POST",
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || "Erreur lors de la duplication")
+      }
+
+      toast.success("Planning dupliqué avec succès")
+      router.push(`/dashboard/schedules/${data.schedule.id}`)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erreur lors de la duplication")
+    } finally {
+      setIsDuplicating(false)
+    }
+  }
+
+  const handleSaveAsTemplate = async () => {
+    if (!schedule) return
+
+    try {
+      setIsSavingTemplate(true)
+      const res = await fetch("/api/schedules/templates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${schedule.name} (Template)`,
+          description: `Template créé à partir de ${schedule.name}`,
+          scheduleId: schedule.id,
+          shifts: schedule.shifts || [],
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || "Erreur lors de la sauvegarde du template")
+      }
+
+      toast.success("Template sauvegardé avec succès !")
+      router.push("/dashboard/schedules/templates")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erreur lors de la sauvegarde")
+    } finally {
+      setIsSavingTemplate(false)
     }
   }
 
@@ -239,8 +298,47 @@ export default function ScheduleDetailPage({ params }: { params: Promise<{ id: s
                     Exporter en iCal
                   </a>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href={`/api/schedules/${schedule.id}/export?format=excel`} download>
+                    Exporter en Excel
+                  </a>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button
+              variant="outline"
+              onClick={handleDuplicate}
+              disabled={schedule.status === "generating" || isDuplicating}
+            >
+              {isDuplicating ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Duplication...
+                </>
+              ) : (
+                <>
+                  <Copy className="mr-2 h-4 w-4" />
+                  Dupliquer
+                </>
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleSaveAsTemplate}
+              disabled={schedule.status === "generating" || isSavingTemplate || !schedule.shifts?.length}
+            >
+              {isSavingTemplate ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sauvegarde...
+                </>
+              ) : (
+                <>
+                  <FileText className="mr-2 h-4 w-4" />
+                  Sauvegarder comme template
+                </>
+              )}
+            </Button>
             {schedule.status === "published" ? (
               <Button variant="default" disabled>
                 <Send className="mr-2 h-4 w-4" />

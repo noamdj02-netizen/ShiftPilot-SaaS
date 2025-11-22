@@ -68,7 +68,8 @@ export function StatsSection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-card border border-border rounded-2xl p-6 text-center hover:shadow-xl transition-all"
+                transition={{ type: "spring", stiffness: 100 }}
+                className="glass border border-border/50 rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 backdrop-blur-md"
               >
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4 ${stat.color}`}>
                   <Icon className="h-8 w-8" />

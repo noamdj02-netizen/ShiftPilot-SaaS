@@ -16,22 +16,22 @@ export function RetentionCohortWidget({ cohorts }: RetentionCohortWidgetProps) {
     : 0
 
   return (
-    <Card>
+    <Card variant="glass" className="hover:shadow-xl transition-all duration-300">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium">Cohorte de Rétention</CardTitle>
+          <CardTitle className="text-sm font-medium text-foreground">Cohorte de Rétention</CardTitle>
           <Users className="h-4 w-4 text-muted-foreground" />
         </div>
         <CardDescription className="text-xs">Taux de rétention moyen</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <div className="text-3xl font-bold">{avgRetention.toFixed(1)}%</div>
+          <div className="text-3xl font-bold text-foreground">{avgRetention.toFixed(1)}%</div>
           <div className="space-y-1">
             {cohorts.slice(0, 3).map((cohort, index) => (
               <div key={index} className="flex items-center justify-between text-xs">
                 <span className="text-muted-foreground">{cohort.month}</span>
-                <span className="font-medium">{cohort.retention.toFixed(1)}%</span>
+                <span className="font-medium text-foreground">{cohort.retention.toFixed(1)}%</span>
               </div>
             ))}
           </div>

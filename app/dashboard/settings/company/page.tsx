@@ -54,9 +54,9 @@ export default function CompanySettingsPage() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>Informations entreprise</CardTitle>
+          <CardTitle className="text-foreground">Informations entreprise</CardTitle>
           <CardDescription>Gérez les informations de votre entreprise</CardDescription>
         </CardHeader>
         <CardContent>

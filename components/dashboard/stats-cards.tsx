@@ -177,9 +177,12 @@ export function StatsCards() {
             transition={{ delay: index * 0.05, duration: 0.4, type: "spring", stiffness: 100 }}
             whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
           >
-            <Card className="hover:shadow-xl transition-all border-border overflow-hidden relative group">
+            <Card 
+              variant="glass" 
+              className="hover:shadow-xl transition-all border-border/50 overflow-hidden relative group backdrop-blur-md"
+            >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 initial={false}
               />
               <CardContent className="p-6 relative">

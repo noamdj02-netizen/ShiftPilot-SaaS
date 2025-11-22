@@ -8,10 +8,21 @@ import { QuickActions } from "@/components/dashboard/quick-actions"
 import { RecentActivity } from "@/components/dashboard/recent-activity"
 import { motion } from "framer-motion"
 import { PageTransition } from "@/components/animations/page-transition"
+import { AnimatedBackground } from "@/components/animations/animated-background"
+import { OnboardingTour } from "@/components/onboarding/onboarding-tour"
+import { DashboardOverview } from "@/components/dashboard/dashboard-overview"
+import { CommunicationWidget } from "@/components/dashboard/communication-widget"
+import { MiniCalendar } from "@/components/dashboard/mini-calendar"
+import { AlertsWidget } from "@/components/dashboard/alerts-widget"
+import { SmartSuggestions } from "@/components/dashboard/smart-suggestions"
+import { DraggableDashboard } from "@/components/dashboard/draggable-dashboard"
+import { ResetLayoutButton } from "@/components/dashboard/reset-layout-button"
+import { RealtimeDashboard } from "@/components/dashboard/realtime-dashboard"
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [layoutKey, setLayoutKey] = useState(0)
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -34,11 +45,8 @@ export default function DashboardPage() {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
-        </div>
+        {/* Background Effects - Même style que le hero */}
+        <AnimatedBackground opacity={0.2} />
 
         <DashboardHeader />
 
@@ -67,6 +75,13 @@ export default function DashboardPage() {
                 {user?.companyName || "Votre établissement"} - Vue d'ensemble
               </motion.p>
             </div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <ResetLayoutButton onReset={() => setLayoutKey((k) => k + 1)} />
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -77,26 +92,43 @@ export default function DashboardPage() {
             <StatsCards />
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-              className="lg:col-span-2 space-y-6"
-            >
-              <UpcomingShifts />
-              <RecentActivity />
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25, type: "spring", stiffness: 100 }}
+          >
+            <DashboardOverview />
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-            >
-              <QuickActions />
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+            className="mb-6"
+          >
+            <RealtimeDashboard />
+          </motion.div>
+
+          <DraggableDashboard
+            key={layoutKey}
+            leftColumn={["upcoming-shifts", "recent-activity"]}
+            rightColumn={["quick-actions", "communication", "alerts", "calendar", "suggestions"]}
+            onLayoutChange={(left, right) => {
+              // Layout saved automatically in localStorage
+              console.log("Layout updated:", { left, right })
+            }}
+            children={{
+              "upcoming-shifts": <UpcomingShifts />,
+              "recent-activity": <RecentActivity />,
+              "quick-actions": <QuickActions />,
+              communication: <CommunicationWidget />,
+              alerts: <AlertsWidget />,
+              calendar: <MiniCalendar />,
+              suggestions: <SmartSuggestions />,
+            }}
+          />
         </main>
+        <OnboardingTour />
       </div>
     </PageTransition>
   )

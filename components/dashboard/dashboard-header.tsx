@@ -5,6 +5,9 @@ import { Bell, Search, Sun, LogOut } from "lucide-react"
 import { MobileSidebar } from "./mobile-sidebar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { SearchBar } from "./search-bar"
+import { CommandPalette } from "@/components/command-palette/command-palette"
 import Link from "next/link"
 import {
   DropdownMenu,
@@ -29,6 +32,7 @@ export function DashboardHeader() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false)
 
   useEffect(() => {
     // Get user info from session
@@ -99,16 +103,17 @@ export function DashboardHeader() {
             </div>
           </div>
 
-          <div className="relative hidden sm:flex flex-1 max-w-md ml-auto">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input type="search" placeholder="Rechercher un employé, un planning..." className="pl-9 bg-muted/50" />
+          <div className="hidden sm:flex flex-1 max-w-md ml-auto">
+            <SearchBar />
           </div>
-          <Button variant="ghost" size="icon" className="sm:hidden">
-            <Search className="h-5 w-5" />
-          </Button>
+          <div className="sm:hidden">
+            <SearchBar />
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
+          
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
             <span className="absolute top-1 right-1 h-2 w-2 bg-accent rounded-full animate-pulse" />

@@ -64,11 +64,11 @@ export function FAQSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+              className="glass border border-border/50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 backdrop-blur-md group"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-muted/50 transition-colors"
+                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-muted/30 transition-colors rounded-xl"
               >
                 <span className="font-semibold text-lg text-foreground pr-8">{faq.question}</span>
                 <motion.div

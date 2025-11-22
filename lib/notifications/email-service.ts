@@ -129,6 +129,46 @@ ShiftPilot - Gestion de plannings intelligente
       </html>
     `,
   },
+
+  custom: {
+    subject: (data) => data.subject || "Message de ShiftPilot",
+    html: (data) => `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; white-space: pre-wrap; }
+            .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>${data.subject || "Message de ShiftPilot"}</h1>
+            </div>
+            <div class="content">
+              <p>Bonjour <strong>${data.employeeName || "Cher employé"}</strong>,</p>
+              <div>${(data.message || "").replace(/\n/g, "<br>").replace(/\{\{employeeName\}\}/g, data.employeeName || "").replace(/\{\{companyName\}\}/g, data.companyName || "Votre entreprise")}</div>
+            </div>
+            <div class="footer">
+              <p>${data.companyName || "ShiftPilot"} - Gestion de plannings intelligente</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+    text: (data) => `
+Bonjour ${data.employeeName || "Cher employé"},
+
+${(data.message || "").replace(/\{\{employeeName\}\}/g, data.employeeName || "").replace(/\{\{companyName\}\}/g, data.companyName || "Votre entreprise")}
+
+${data.companyName || "ShiftPilot"}
+    `,
+  },
 }
 
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
@@ -200,9 +240,11 @@ export async function sendEmailTemplate(
     return false
   }
 
+  const subject = typeof template.subject === "function" ? template.subject(data) : template.subject
+
   return sendEmail({
     to,
-    subject: template.subject,
+    subject,
     html: template.html(data),
     text: template.text?.(data),
   })

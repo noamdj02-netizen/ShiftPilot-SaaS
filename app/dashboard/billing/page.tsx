@@ -48,27 +48,33 @@ export default function BillingPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
         className="space-y-6"
       >
         <div>
-          <h1 className="text-3xl font-bold mb-2">Facturation</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">Facturation</h1>
           <p className="text-muted-foreground">Gérez votre abonnement et vos factures</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Plan actuel</CardTitle>
-              <CardDescription>Votre abonnement actuel</CardDescription>
-            </CardHeader>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1, type: "spring" }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Plan actuel</CardTitle>
+                <CardDescription>Votre abonnement actuel</CardDescription>
+              </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-2xl font-bold">{currentPlan.name}</h3>
+                  <h3 className="text-2xl font-bold text-foreground">{currentPlan.name}</h3>
                   <Badge variant="default">Actif</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">{currentPlan.description}</p>
-                <div className="text-3xl font-bold mb-2">
+                <div className="text-3xl font-bold mb-2 text-foreground">
                   {currentPlan.price}€<span className="text-lg text-muted-foreground">/mois</span>
                 </div>
               </div>
@@ -77,7 +83,7 @@ export default function BillingPage() {
                 <p className="text-sm font-medium">Fonctionnalités incluses :</p>
                 <ul className="space-y-2">
                   {currentPlan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm">
+                    <li key={index} className="flex items-center gap-2 text-sm text-foreground">
                       <Check className="h-4 w-4 text-primary" />
                       {feature}
                     </li>
@@ -88,7 +94,7 @@ export default function BillingPage() {
               <div className="pt-4 border-t">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">Prochain renouvellement</span>
-                  <span className="font-medium flex items-center gap-1">
+                  <span className="font-medium flex items-center gap-1 text-foreground">
                     <Calendar className="h-4 w-4" />
                     {format(nextBillingDate, "d MMMM yyyy")}
                   </span>
@@ -120,11 +126,16 @@ export default function BillingPage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Méthode de paiement</CardTitle>
-              <CardDescription>Gérez votre méthode de paiement</CardDescription>
-            </CardHeader>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, type: "spring" }}
+          >
+            <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+              <CardHeader>
+                <CardTitle className="text-foreground">Méthode de paiement</CardTitle>
+                <CardDescription>Gérez votre méthode de paiement</CardDescription>
+              </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-4 border border-border rounded-lg">
                 <div className="flex items-center gap-3">
@@ -132,7 +143,7 @@ export default function BillingPage() {
                     <CreditCard className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium">Carte •••• •••• •••• 4242</p>
+                    <p className="font-medium text-foreground">Carte •••• •••• •••• 4242</p>
                     <p className="text-sm text-muted-foreground">Expire le 12/25</p>
                   </div>
                 </div>
@@ -176,13 +187,19 @@ export default function BillingPage() {
               </div>
             </CardContent>
           </Card>
+          </motion.div>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Historique des factures</CardTitle>
-            <CardDescription>Consultez et téléchargez vos factures précédentes</CardDescription>
-          </CardHeader>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, type: "spring" }}
+        >
+          <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+            <CardHeader>
+              <CardTitle className="text-foreground">Historique des factures</CardTitle>
+              <CardDescription>Consultez et téléchargez vos factures précédentes</CardDescription>
+            </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {invoices.map((invoice) => (
@@ -195,7 +212,7 @@ export default function BillingPage() {
                       <Download className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div>
-                      <p className="font-medium">{invoice.description}</p>
+                      <p className="font-medium text-foreground">{invoice.description}</p>
                       <p className="text-sm text-muted-foreground">
                         {format(invoice.date, "d MMMM yyyy")}
                       </p>
@@ -203,7 +220,7 @@ export default function BillingPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-right">
-                      <p className="font-medium">{invoice.amount}€</p>
+                      <p className="font-medium text-foreground">{invoice.amount}€</p>
                       <Badge variant={invoice.status === "paid" ? "default" : "secondary"}>
                         {invoice.status === "paid" ? "Payé" : "En attente"}
                       </Badge>
@@ -229,17 +246,23 @@ export default function BillingPage() {
             </div>
           </CardContent>
         </Card>
+        </motion.div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Utilisation</CardTitle>
-            <CardDescription>Votre utilisation actuelle</CardDescription>
-          </CardHeader>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, type: "spring" }}
+        >
+          <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
+            <CardHeader>
+              <CardTitle className="text-foreground">Utilisation</CardTitle>
+              <CardDescription>Votre utilisation actuelle</CardDescription>
+            </CardHeader>
           <CardContent className="space-y-4">
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span>Employés</span>
-                <span className="font-medium">8 / 50</span>
+                <span className="font-medium text-foreground">8 / 50</span>
               </div>
               <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-primary rounded-full" style={{ width: "16%" }} />
@@ -249,7 +272,7 @@ export default function BillingPage() {
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span>Plannings</span>
-                <span className="font-medium">Illimité</span>
+                <span className="font-medium text-foreground">Illimité</span>
               </div>
               <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-primary rounded-full" style={{ width: "100%" }} />

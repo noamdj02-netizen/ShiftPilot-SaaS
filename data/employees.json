@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1763769209094",
+    "firstName": "noam",
+    "lastName": "brochet",
+    "email": "juju14brochet@gmail.com",
+    "phone": "0633438926",
+    "role": "Chef de rang",
+    "hourlyRate": 10.99,
+    "maxHoursPerWeek": 35,
+    "createdAt": "2025-11-21T23:53:29.094Z",
+    "updatedAt": "2025-11-21T23:53:29.094Z"
+  },
+  {
+    "id": "2cb36f2c-69e0-4c2b-8088-07ad4619d30a",
+    "firstName": "Jean",
+    "lastName": "Dupont",
+    "email": "employe@test.com",
+    "phone": "+33 6 12 34 56 78",
+    "role": "Serveur",
+    "contractType": "CDI",
+    "weeklyHours": 35,
+    "hourlyRate": 15,
+    "password": "test1234",
+    "hasCredentials": true,
+    "credentialsGeneratedAt": "2025-11-22T04:51:17.163Z",
+    "notificationPreferences": {
+      "emailEnabled": true,
+      "smsEnabled": false
+    },
+    "createdAt": "2025-11-22T04:51:17.172Z",
+    "updatedAt": "2025-11-22T04:51:17.172Z"
+  }
+]

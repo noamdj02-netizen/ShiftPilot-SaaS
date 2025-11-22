@@ -47,9 +47,9 @@ const upcomingShifts = [
 
 export function UpcomingShifts() {
   return (
-    <Card className="overflow-hidden">
+    <Card variant="glass" className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Prochains shifts</CardTitle>
+        <CardTitle className="text-foreground">Prochains shifts</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
@@ -58,9 +58,18 @@ export function UpcomingShifts() {
               key={shift.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.3 }}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="flex items-center gap-4 p-3 rounded-lg border border-border hover:bg-muted/50 hover:shadow-sm transition-all cursor-pointer"
+              transition={{ 
+                delay: index * 0.08, 
+                type: "spring", 
+                stiffness: 200, 
+                damping: 20 
+              }}
+              whileHover={{ 
+                x: 4, 
+                scale: 1.01,
+                transition: { duration: 0.2 } 
+              }}
+              className="flex items-center gap-4 p-3 rounded-lg border border-border/50 hover:bg-muted/50 hover:shadow-md transition-all cursor-pointer backdrop-blur-sm"
             >
               <motion.div
                 whileHover={{ scale: 1.1 }}

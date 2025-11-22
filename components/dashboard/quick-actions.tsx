@@ -2,9 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Plus, Wand2, UserPlus, Download } from "lucide-react"
+import { Plus, Wand2, UserPlus, Download, Mail } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { EmployeeEmailComposer } from "./employee-email-composer"
 
 const actions = [
   {
@@ -39,9 +40,9 @@ const actions = [
 
 export function QuickActions() {
   return (
-    <Card>
+    <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
-        <CardTitle>Actions rapides</CardTitle>
+        <CardTitle className="text-foreground">Actions rapides</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         {actions.map((action) => {
@@ -51,12 +52,17 @@ export function QuickActions() {
               key={action.href}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: action.delay }}
-              whileHover={{ scale: 1.02 }}
+              transition={{ 
+                delay: action.delay, 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 30 
+              }}
+              whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
               <Button
-                className="w-full justify-start"
+                className="w-full justify-start shadow-sm hover:shadow-md transition-shadow"
                 variant={action.variant}
                 asChild
               >
@@ -68,6 +74,19 @@ export function QuickActions() {
             </motion.div>
           )
         })}
+        
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            delay: 0.4, 
+            type: "spring", 
+            stiffness: 300, 
+            damping: 30 
+          }}
+        >
+          <EmployeeEmailComposer />
+        </motion.div>
       </CardContent>
     </Card>
   )

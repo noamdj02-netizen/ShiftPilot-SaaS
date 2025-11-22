@@ -252,16 +252,17 @@ export function ScheduleList() {
         return (
           <motion.div
             key={schedule.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+            whileHover={{ y: -2, scale: 1.01, transition: { duration: 0.2 } }}
           >
-            <Card>
+            <Card variant="glass" className="hover:shadow-xl transition-all duration-300 border-border/50 backdrop-blur-md group">
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <h3 className="font-semibold text-lg">{schedule.name}</h3>
+                  <h3 className="font-semibold text-lg text-foreground">{schedule.name}</h3>
                   <Badge
                     variant={
                       schedule.status === "published"

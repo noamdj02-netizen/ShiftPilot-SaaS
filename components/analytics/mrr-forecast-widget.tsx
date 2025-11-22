@@ -9,10 +9,10 @@ interface MRRForecastWidgetProps {
 
 export function MRRForecastWidget({ forecast }: MRRForecastWidgetProps) {
   return (
-    <Card>
+    <Card variant="glass" className="hover:shadow-xl transition-all duration-300">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium">Prévision MRR</CardTitle>
+          <CardTitle className="text-sm font-medium text-foreground">Prévision MRR</CardTitle>
           <TrendingUp className="h-4 w-4 text-green-600" />
         </div>
         <CardDescription className="text-xs">Revenus récurrents mensuels prévus</CardDescription>
@@ -21,7 +21,7 @@ export function MRRForecastWidget({ forecast }: MRRForecastWidgetProps) {
         <div className="space-y-2">
           <div className="flex items-baseline gap-2">
             <DollarSign className="h-5 w-5 text-muted-foreground" />
-            <div className="text-3xl font-bold">{forecast.toLocaleString()}</div>
+            <div className="text-3xl font-bold text-foreground">{forecast.toLocaleString()}</div>
           </div>
           <p className="text-xs text-muted-foreground">Pour le mois prochain</p>
         </div>

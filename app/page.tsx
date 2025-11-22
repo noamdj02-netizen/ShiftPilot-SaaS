@@ -3,7 +3,10 @@
 import type React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Calendar, Users, Clock, TrendingUp, Shield, ArrowRight, Sparkles, Play } from "lucide-react"
+import { CheckCircle, Users, Clock, TrendingUp, Shield, ArrowRight, Sparkles, Play, Zap, Calendar } from "lucide-react"
+import { Logo } from "@/components/logo/logo"
+import { Badge } from "@/components/ui/badge"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { motion } from "framer-motion"
 import { StatsSection } from "@/components/landing/stats-section"
 import { HowItWorks } from "@/components/landing/how-it-works"
@@ -14,24 +17,17 @@ import { MagneticButton } from "@/components/animations/magnetic-button"
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="fixed inset-0 opacity-3 pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-chart-1 rounded-full blur-3xl" />
+      </div>
+      
+      <header className="sticky top-0 z-50 glass border-b border-border/50 shadow-lg backdrop-blur-md">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-              className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center shadow-lg"
-            >
-              <Calendar className="h-6 w-6 text-primary-foreground" />
-            </motion.div>
-            <span className="text-2xl font-bold text-foreground">ShiftPilot</span>
-          </motion.div>
+          <Logo href="/" />
           <nav className="hidden md:flex items-center gap-8">
             {[
               { href: "#features", label: "Fonctionnalités" },
@@ -51,119 +47,358 @@ export default function LandingPage() {
             ))}
           </nav>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" asChild>
-                <Link href="/login">Connexion</Link>
+                <Link href="/auth-select">Connexion</Link>
               </Button>
             </motion.div>
             <MagneticButton strength={0.15}>
               <Button className="bg-primary hover:bg-primary/90" asChild>
-                <Link href="/signup">Essayer gratuitement</Link>
+                <Link href="/auth-select">Essayer gratuitement</Link>
               </Button>
             </MagneticButton>
           </div>
         </div>
       </header>
 
-      <section className="container mx-auto px-4 py-20 lg:py-32">
-        <div className="max-w-5xl mx-auto">
+      {/* Hero Section - Redesign Complet */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20 pb-32">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 bg-accent/10 px-4 py-2 rounded-full text-sm font-medium mb-6 text-card-foreground">
-              <Sparkles className="h-4 w-4" />
-              Spécialement conçu pour la restauration
-            </div>
-            <TextReveal
-              text="La planification du personnel enfin pensée pour les restaurants"
-              className="text-5xl lg:text-7xl font-bold text-balance mb-6 text-foreground leading-tight"
-            />
-            <p className="text-xl lg:text-2xl text-muted-foreground text-balance mb-10 leading-relaxed max-w-3xl mx-auto">
-              Créez vos plannings en quelques secondes, optimisez vos services midi et soir, éliminez les
-              sous-effectifs.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <MagneticButton strength={0.2}>
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 h-14" asChild>
-                  <Link href="/signup">
-                    Essayer gratuitement
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </MagneticButton>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" variant="outline" className="text-lg px-8 h-14 bg-transparent" asChild>
-                  <Link href="#demo">
-                    <Play className="mr-2 h-5 w-5" />
-                    Voir une démo
-                  </Link>
-                </Button>
-              </motion.div>
-            </div>
-            <p className="text-sm text-muted-foreground mt-6">
-              14 jours gratuits • Sans carte bancaire • Annulation à tout moment
-            </p>
-          </motion.div>
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-chart-1 rounded-full blur-3xl opacity-20"
+          />
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="bg-card border-2 border-border rounded-2xl p-8 shadow-2xl relative overflow-hidden group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative z-10">
-            <div className="grid grid-cols-7 gap-2 mb-4">
-              {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((day, i) => (
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                className="space-y-8"
+              >
+                {/* Badge */}
                 <motion.div
-                  key={day}
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.05 }}
-                  className="text-center font-medium text-sm text-muted-foreground"
+                  transition={{ delay: 0.2, type: "spring" }}
+                  className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium text-foreground border border-border/50 shadow-lg backdrop-blur-md group"
+                  whileHover={{ scale: 1.05 }}
                 >
-                  {day}
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Sparkles className="h-4 w-4 text-primary" />
+                  </motion.div>
+                  <span>Spécialement conçu pour la restauration</span>
+                  <motion.div
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <ArrowRight className="h-3 w-3" />
+                  </motion.div>
                 </motion.div>
-              ))}
-            </div>
-            <div className="space-y-2">
-              {[
-                { name: "Service Midi", color: "bg-chart-1", delay: 0.6 },
-                { name: "Service Soir", color: "bg-chart-2", delay: 0.7 },
-                { name: "Bar", color: "bg-chart-3", delay: 0.8 },
-              ].map((service) => (
-                <div key={service.name} className="flex items-center gap-2">
-                  <span className="text-sm font-medium w-28 text-foreground">{service.name}</span>
-                  <div className="flex-1 grid grid-cols-7 gap-2">
-                    {Array.from({ length: 7 }).map((_, i) => (
+
+                {/* Main Title */}
+                <div className="space-y-4">
+                  <TextReveal
+                    text="Planification intelligente pour restaurants"
+                    className="text-5xl lg:text-6xl xl:text-7xl font-bold text-balance text-foreground leading-tight"
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, type: "spring" }}
+                    className="flex items-center gap-3 text-lg lg:text-xl text-muted-foreground"
+                  >
+                    <div className="h-1 w-12 bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 rounded-full" />
+                    <span>Solution complète pour managers, serveurs et équipes F&B</span>
+                  </motion.div>
+                </div>
+
+                {/* Description */}
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, type: "spring" }}
+                  className="text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-xl"
+                >
+                  Créez vos plannings en <span className="font-semibold text-foreground">quelques secondes</span>, optimisez vos services midi et soir, éliminez les sous-effectifs. 
+                  <span className="block mt-2">Gagnez du temps, réduisez les erreurs, améliorez la satisfaction de votre équipe.</span>
+                </motion.p>
+
+                {/* Stats Grid */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, type: "spring" }}
+                  className="grid grid-cols-2 gap-4 max-w-xl"
+                >
+                  {[
+                    { label: "Temps gagné", value: "95%", icon: Clock, color: "text-chart-1" },
+                    { label: "Erreurs évitées", value: "100%", icon: Shield, color: "text-chart-2" },
+                    { label: "Satisfaction", value: "4.9/5", icon: TrendingUp, color: "text-chart-3" },
+                    { label: "Restaurants", value: "500+", icon: Users, color: "text-chart-4" },
+                  ].map((stat, i) => {
+                    const Icon = stat.icon
+                    return (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: service.delay + i * 0.05 }}
-                        className={`${service.color} rounded-lg h-12 flex items-center justify-center text-xs font-medium text-white`}
+                        transition={{ delay: 0.7 + i * 0.1, type: "spring" }}
+                        whileHover={{ scale: 1.05, y: -4 }}
+                        className="glass border border-border/50 rounded-xl p-4 backdrop-blur-md hover:shadow-xl transition-all duration-300 group"
                       >
-                        {i < 5 ? "2-3" : "3-4"}
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className={`p-2 rounded-lg ${stat.color === "text-chart-1" ? "bg-chart-1/10" : stat.color === "text-chart-2" ? "bg-chart-2/10" : stat.color === "text-chart-3" ? "bg-chart-3/10" : "bg-chart-4/10"} ${stat.color}`}>
+                            <Icon className="h-4 w-4" />
+                          </div>
+                          <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{stat.label}</p>
                       </motion.div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-                className="text-center text-sm text-muted-foreground mt-6"
+                    )
+                  })}
+                </motion.div>
+
+                {/* CTAs */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, type: "spring" }}
+                  className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4"
+                >
+                  <MagneticButton strength={0.2}>
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 h-14 shadow-xl hover:shadow-2xl transition-all" asChild>
+                      <Link href="/signup">
+                        Commencer gratuitement
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                  </MagneticButton>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" variant="glass" className="text-lg px-8 h-14 border-2 border-border/50 backdrop-blur-md hover:shadow-xl transition-all" asChild>
+                      <Link href="#demo">
+                        <Play className="mr-2 h-5 w-5" />
+                        Voir la démo
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+
+                {/* Trust Badges */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  className="flex flex-wrap items-center gap-3 pt-2"
+                >
+                  {[
+                    { icon: Shield, text: "14 jours gratuits" },
+                    { icon: CheckCircle, text: "Sans carte bancaire" },
+                    { icon: Sparkles, text: "Annulation à tout moment" },
+                  ].map((item, i) => {
+                    const Icon = item.icon
+                    return (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1.1 + i * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        className="flex items-center gap-2 glass px-3 py-1.5 rounded-full text-sm text-foreground border border-border/50 backdrop-blur-sm"
+                      >
+                        <Icon className="h-4 w-4 text-accent-green" />
+                        <span>{item.text}</span>
+                      </motion.div>
+                    )
+                  })}
+                </motion.div>
+              </motion.div>
+
+              {/* Right Column - Visual Dashboard Preview */}
+              <motion.div
+                initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                className="relative lg:h-[600px]"
               >
-                Planning généré automatiquement en 5 secondes
-              </motion.p>
+                {/* Dashboard Mockup Card */}
+                <motion.div
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  className="glass border-2 border-border/50 rounded-3xl p-6 shadow-2xl backdrop-blur-md relative overflow-hidden group h-full"
+                >
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/50">
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 rounded-full bg-red-500" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                      <div className="w-3 h-3 rounded-full bg-green-500" />
+                    </div>
+                    <div className="flex items-center gap-2 glass px-3 py-1 rounded-lg border border-border/50 backdrop-blur-sm">
+                      <Calendar className="h-4 w-4 text-foreground" />
+                      <span className="text-sm font-medium text-foreground">Semaine 4 - Janvier</span>
+                    </div>
+                  </div>
+
+                  {/* Calendar Grid */}
+                  <div className="space-y-4">
+                    {/* Days Header */}
+                    <div className="grid grid-cols-7 gap-2">
+                      {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((day, i) => (
+                        <motion.div
+                          key={day}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 + i * 0.05 }}
+                          className="text-center font-medium text-sm text-muted-foreground"
+                        >
+                          {day}
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Services Grid */}
+                    <div className="space-y-3">
+                      {[
+                        { name: "Service Midi", color: "bg-chart-1", hours: "11h-15h", people: 2 },
+                        { name: "Service Soir", color: "bg-chart-2", hours: "19h-23h", people: 4 },
+                        { name: "Bar", color: "bg-chart-3", hours: "17h-01h", people: 2 },
+                      ].map((service, serviceIndex) => (
+                        <div key={service.name} className="space-y-2">
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className={`w-2 h-2 rounded-full ${service.color}`} />
+                            <span className="text-xs font-medium text-foreground">{service.name}</span>
+                          </div>
+                          <div className="grid grid-cols-7 gap-2">
+                            {Array.from({ length: 7 }).map((_, dayIndex) => (
+                              <motion.div
+                                key={dayIndex}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.7 + serviceIndex * 0.1 + dayIndex * 0.03 }}
+                                whileHover={{ scale: 1.1, z: 10 }}
+                                className={`${service.color} rounded-lg p-2 text-white text-[10px] flex flex-col items-center justify-center min-h-[60px] hover:shadow-lg transition-all cursor-pointer group/cell`}
+                              >
+                                <div className="font-semibold">{service.people}-{service.people + 1}</div>
+                                <div className="opacity-80 text-[9px]">{service.hours.split('-')[0]}</div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Stats Footer */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.2 }}
+                      className="flex items-center justify-between pt-4 mt-4 border-t border-border/50 glass px-4 py-3 rounded-xl backdrop-blur-sm"
+                    >
+                      <div className="flex items-center gap-4 text-sm">
+                        <div>
+                          <div className="text-xs text-muted-foreground">Heures totales</div>
+                          <div className="font-bold text-foreground">420h</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-muted-foreground">Employés</div>
+                          <div className="font-bold text-foreground">12</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-muted-foreground">Conformité</div>
+                          <div className="font-bold text-accent-green flex items-center gap-1">
+                            <CheckCircle className="h-4 w-4" />
+                            100%
+                          </div>
+                        </div>
+                      </div>
+                      <motion.div
+                        animate={{ scale: [1, 1.05, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="glass px-3 py-1.5 rounded-lg border border-border/50 backdrop-blur-sm"
+                      >
+                        <div className="flex items-center gap-2 text-xs">
+                          <motion.div
+                            animate={{ opacity: [1, 0.5, 1] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                            className="w-2 h-2 rounded-full bg-accent-green"
+                          />
+                          <span className="text-foreground font-medium">Généré en 5s</span>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  </div>
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl" />
+                </motion.div>
+
+                {/* Floating Elements */}
+                <motion.div
+                  animate={{ y: [0, -20, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-4 -right-4 glass px-3 py-2 rounded-lg border border-border/50 backdrop-blur-sm shadow-lg z-10"
+                >
+                  <div className="flex items-center gap-2 text-xs">
+                    <Zap className="h-3 w-3 text-chart-2" />
+                    <span className="font-medium text-foreground">IA Active</span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, 20, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute -bottom-4 -left-4 glass px-3 py-2 rounded-lg border border-border/50 backdrop-blur-sm shadow-lg z-10"
+                >
+                  <div className="flex items-center gap-2 text-xs">
+                    <CheckCircle className="h-3 w-3 text-accent-green" />
+                    <span className="font-medium text-foreground">100% Conforme</span>
+                  </div>
+                </motion.div>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -171,21 +406,52 @@ export default function LandingPage() {
 
       <DemoSection />
 
-      <section id="before-after" className="py-20 bg-muted/30">
+      <section id="before-after" className="py-20 bg-muted/30 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium mb-6 text-foreground border border-border/50 backdrop-blur-sm">
+              <TrendingUp className="h-4 w-4" />
+              <span>Transformation</span>
+            </div>
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Avant / Après ShiftPilot</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
-              Abandonnez les outils inadaptés pour une solution pensée pour vos besoins
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance mb-8">
+              Abandonnez les outils inadaptés pour une solution pensée pour vos besoins. Voyez la différence en chiffres.
             </p>
-          </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 max-w-4xl mx-auto">
+              {[
+                { label: "Gain de temps", value: "95%", color: "text-accent-green" },
+                { label: "Erreurs évitées", value: "100%", color: "text-accent-green" },
+                { label: "Satisfaction équipe", value: "+80%", color: "text-accent-green" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="glass px-6 py-3 rounded-xl border border-border/50 backdrop-blur-sm text-center"
+                >
+                  <div className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-destructive/5 border-2 border-destructive/20 rounded-2xl p-8"
+              transition={{ type: "spring", stiffness: 100 }}
+              whileHover={{ scale: 1.02, x: 4 }}
+              className="glass border-2 border-destructive/30 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               <div className="text-destructive font-bold text-sm mb-4">AVANT</div>
               <h3 className="text-2xl font-bold mb-6 text-foreground">Excel + WhatsApp</h3>
@@ -212,7 +478,9 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-accent-green/5 border-2 border-accent-green/40 rounded-2xl p-8"
+              transition={{ type: "spring", stiffness: 100 }}
+              whileHover={{ scale: 1.02, x: -4 }}
+              className="glass border-2 border-accent-green/50 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               <div className="text-accent-green font-bold text-sm mb-4">APRÈS</div>
               <h3 className="text-2xl font-bold mb-6 text-foreground">Avec ShiftPilot</h3>
@@ -236,59 +504,128 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="features" className="py-20">
+      <section id="features" className="py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium mb-6 text-foreground border border-border/50 backdrop-blur-sm">
+              <Sparkles className="h-4 w-4" />
+              <span>Fonctionnalités complètes</span>
+            </div>
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">
               Fonctionnalités pensées pour le service
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
-              Chaque détail a été conçu pour les réalités de la restauration
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance mb-8">
+              Chaque détail a été conçu pour les réalités de la restauration. Découvrez comment ShiftPilot transforme votre gestion quotidienne.
             </p>
-          </div>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+              <Badge variant="outline" className="glass border-border/50 backdrop-blur-sm">
+                <Clock className="h-3 w-3 mr-1" />
+                Temps réel
+              </Badge>
+              <Badge variant="outline" className="glass border-border/50 backdrop-blur-sm">
+                <Shield className="h-3 w-3 mr-1" />
+                Sécurisé
+              </Badge>
+              <Badge variant="outline" className="glass border-border/50 backdrop-blur-sm">
+                <TrendingUp className="h-3 w-3 mr-1" />
+                Automatisé
+              </Badge>
+              <Badge variant="outline" className="glass border-border/50 backdrop-blur-sm">
+                <Sparkles className="h-3 w-3 mr-1" />
+                IA intégrée
+              </Badge>
+            </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
             <FeatureCard
               icon={<Clock className="h-8 w-8" />}
               title="Service Midi / Soir"
               description="Organisez vos deux services quotidiens avec des plannings dédiés. Gérez les coupures légalement."
+              details={["Plannings séparés midi/soir", "Gestion automatique des coupures", "Optimisation des chevauchements"]}
               color="bg-chart-1"
             />
             <FeatureCard
               icon={<Users className="h-8 w-8" />}
               title="Rôles Métiers"
               description="Serveur, Barman, Runner, Commis, Chef de rang... Assignez les bonnes personnes aux bons postes."
+              details={["8+ rôles préconfigurés", "Affectation intelligente par compétences", "Gestion des polyvalences"]}
               color="bg-chart-2"
             />
             <FeatureCard
               icon={<Shield className="h-8 w-8" />}
               title="Conformité Légale"
               description="Respect automatique des 11h de repos, coupures, heures sup et conventions collectives HCR."
+              details={["11h de repos garanti", "Alertes automatiques", "Conventions HCR intégrées"]}
               color="bg-chart-3"
             />
             <FeatureCard
               icon={<TrendingUp className="h-8 w-8" />}
               title="Équité des Heures"
               description="Évitez les extras abusifs. Distribuez équitablement les heures entre votre équipe permanente."
+              details={["Répartition automatique équitable", "Suivi des heures par employé", "Alertes déséquilibres"]}
               color="bg-chart-4"
             />
             <FeatureCard
               icon={<Calendar className="h-8 w-8" />}
               title="Disponibilités"
               description="Vos employés indiquent leurs dispos. Le planning s'adapte automatiquement à vos contraintes."
+              details={["Calendrier des disponibilités", "Préférences personnalisées", "Adaptation automatique"]}
               color="bg-chart-1"
             />
             <FeatureCard
               icon={<Sparkles className="h-8 w-8" />}
               title="Génération IA"
               description="L'IA crée le planning optimal en fonction de l'affluence prévue, des compétences et des préférences."
+              details={["Optimisation intelligente", "Prédiction d'affluence", "Suggestions en temps réel"]}
               color="bg-accent"
             />
           </div>
+
+          {/* Additional features showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, type: "spring" }}
+            className="max-w-4xl mx-auto glass border border-border/50 rounded-2xl p-8 backdrop-blur-md shadow-xl"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-foreground text-center">Et bien plus encore...</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Notifications automatiques par email et SMS" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Export PDF et iCal pour vos employés" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Historique complet des plannings" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Analytics détaillées des heures travaillées" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Gestion des remplacements et échanges" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Application mobile pour vos employés" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Multi-établissements (selon formule)" },
+                { icon: <ArrowRight className="h-5 w-5" />, text: "Support prioritaire inclus" },
+              ].map((feature, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex items-center gap-3 text-sm text-foreground"
+                >
+                  <div className="text-primary">{feature.icon}</div>
+                  <span>{feature.text}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/30 relative z-10">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -296,10 +633,32 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
+            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium mb-6 text-foreground border border-border/50 backdrop-blur-sm">
+              <Users className="h-4 w-4" />
+              <span>Témoignages clients</span>
+            </div>
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">
               Utilisé par les meilleurs établissements
             </h2>
-            <p className="text-lg text-muted-foreground">Ce que disent les managers qui nous font confiance</p>
+            <p className="text-lg text-muted-foreground mb-8">
+              Ce que disent les managers qui nous font confiance. Découvrez comment ShiftPilot transforme leur quotidien.
+            </p>
+            <div className="flex items-center justify-center gap-2 mb-8">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <motion.svg
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, type: "spring" }}
+                  className="w-6 h-6 fill-chart-2 text-chart-2"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                </motion.svg>
+              ))}
+              <span className="ml-2 text-sm font-medium text-foreground">4.9/5 sur 500+ avis</span>
+            </div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -311,6 +670,7 @@ export default function LandingPage() {
                 role: "Manager - Brasserie Le Central, Paris",
                 rating: 5,
                 image: "MD",
+                stats: "10h/semaine économisées • 15 employés",
               },
               {
                 quote:
@@ -319,6 +679,7 @@ export default function LandingPage() {
                 role: "Propriétaire - Bistrot Moderne, Lyon",
                 rating: 5,
                 image: "TL",
+                stats: "100% de conformité • 25 employés",
               },
               {
                 quote:
@@ -327,6 +688,7 @@ export default function LandingPage() {
                 role: "Cheffe de rang - Restaurant Le Jardin, Nice",
                 rating: 5,
                 image: "SM",
+                stats: "98% satisfaction équipe • 12 employés",
               },
             ].map((testimonial, i) => (
               <motion.div
@@ -335,10 +697,11 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, type: "spring", stiffness: 100 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="bg-card border border-border rounded-2xl p-8 hover:shadow-2xl transition-all relative overflow-hidden group"
+                whileHover={{ y: -8, scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 100 }}
+                className="glass border border-border/50 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group backdrop-blur-md"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500 blur-xl" />
                 <div className="relative z-10">
                   <div className="flex items-center gap-1 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, j) => (
@@ -359,12 +722,21 @@ export default function LandingPage() {
                     {testimonial.quote}
                   </p>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold shadow-lg"
+                    >
                       {testimonial.image}
-                    </div>
-                    <div>
+                    </motion.div>
+                    <div className="flex-1">
                       <p className="font-semibold text-foreground">{testimonial.author}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      {testimonial.stats && (
+                        <p className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
+                          <CheckCircle className="h-3 w-3 text-accent-green" />
+                          {testimonial.stats}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -374,19 +746,46 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 100 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm font-medium mb-6 text-foreground border border-border/50 backdrop-blur-sm">
+              <TrendingUp className="h-4 w-4" />
+              <span>Tarification simple</span>
+            </div>
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Tarifs transparents</h2>
-            <p className="text-lg text-muted-foreground">Adapté à la taille de votre établissement</p>
-          </div>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Adapté à la taille de votre établissement. Tous les plans incluent l'essai gratuit de 14 jours.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground mb-12">
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-border/50 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4 text-accent-green" />
+                <span>Pas de frais cachés</span>
+              </div>
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-border/50 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4 text-accent-green" />
+                <span>Annulation à tout moment</span>
+              </div>
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-border/50 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4 text-accent-green" />
+                <span>Mise à niveau gratuite</span>
+              </div>
+            </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
             <PricingCard
               name="Petit Resto"
               price="59"
               description="Idéal pour cafés et petits restaurants"
               features={["Jusqu'à 15 employés", "Planning midi & soir", "Génération IA basique", "Support email"]}
+              savings="Économisez 10h/semaine"
             />
             <PricingCard
               name="Brasserie"
@@ -399,6 +798,7 @@ export default function LandingPage() {
                 "Support prioritaire",
               ]}
               popular
+              savings="Économisez 20h/semaine"
             />
             <PricingCard
               name="Groupe"
@@ -410,8 +810,67 @@ export default function LandingPage() {
                 "IA personnalisée",
                 "Support dédié 24/7",
               ]}
+              savings="ROI sur mesure"
             />
           </div>
+
+          {/* Tableau de comparaison */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="glass border border-border/50 rounded-2xl p-8 backdrop-blur-md max-w-6xl mx-auto overflow-x-auto"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-foreground text-center">Comparaison détaillée des plans</h3>
+            <div className="min-w-full">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border/50">
+                    <th className="text-left py-4 px-4 font-semibold text-foreground">Fonctionnalités</th>
+                    <th className="text-center py-4 px-4 font-semibold text-foreground">Petit Resto</th>
+                    <th className="text-center py-4 px-4 font-semibold text-foreground bg-accent/10">Brasserie</th>
+                    <th className="text-center py-4 px-4 font-semibold text-foreground">Groupe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feature: "Nombre d'employés", starter: "Jusqu'à 15", pro: "Jusqu'à 50", enterprise: "Illimité" },
+                    { feature: "Plannings mensuels", starter: "Illimité", pro: "Illimité", enterprise: "Illimité" },
+                    { feature: "Génération IA", starter: "Basique", pro: "Avancée", enterprise: "Personnalisée" },
+                    { feature: "Multi-établissements", starter: "—", pro: "2 lieux", enterprise: "Illimité" },
+                    { feature: "Analytics & Rapports", starter: "—", pro: "✓", enterprise: "✓ Premium" },
+                    { feature: "Export PDF/iCal", starter: "✓", pro: "✓", enterprise: "✓ + Excel" },
+                    { feature: "Templates de plannings", starter: "3", pro: "Illimité", enterprise: "Illimité" },
+                    { feature: "Notifications Email/SMS", starter: "✓", pro: "✓", enterprise: "✓ Premium" },
+                    { feature: "Support", starter: "Email", pro: "Prioritaire", enterprise: "Dédié 24/7" },
+                    { feature: "Intégrations", starter: "—", pro: "Google Calendar", enterprise: "Toutes les APIs" },
+                  ].map((row, i) => (
+                    <motion.tr
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                      className="border-b border-border/30 hover:bg-muted/30 transition-colors"
+                    >
+                      <td className="py-4 px-4 text-foreground font-medium">{row.feature}</td>
+                      <td className="py-4 px-4 text-center text-muted-foreground">{row.starter}</td>
+                      <td className="py-4 px-4 text-center text-foreground font-semibold bg-accent/5">{row.pro}</td>
+                      <td className="py-4 px-4 text-center text-foreground">{row.enterprise}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-8 text-center">
+              <MagneticButton strength={0.15}>
+                <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+                  <Link href="/signup">Commencer l'essai gratuit</Link>
+                </Button>
+              </MagneticButton>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -421,9 +880,42 @@ export default function LandingPage() {
 
       <section className="bg-primary text-primary-foreground py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-64 h-64 border-2 border-current rounded-full" />
-          <div className="absolute bottom-40 right-20 w-48 h-48 border-2 border-current rounded-lg rotate-45" />
-          <div className="absolute top-1/2 left-1/3 w-32 h-32 border-2 border-current rounded-full" />
+          <motion.div
+            animate={{ 
+              rotate: [0, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="absolute top-20 left-20 w-64 h-64 border-2 border-current rounded-full"
+          />
+          <motion.div
+            animate={{ 
+              rotate: [0, -360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              duration: 15, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="absolute bottom-40 right-20 w-48 h-48 border-2 border-current rounded-lg"
+          />
+          <motion.div
+            animate={{ 
+              rotate: [0, 360],
+              scale: [1, 1.2, 1]
+            }}
+            transition={{ 
+              duration: 25, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="absolute top-1/2 left-1/3 w-32 h-32 border-2 border-current rounded-full"
+          />
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div
@@ -445,10 +937,30 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-xl mb-10 text-balance opacity-90 max-w-2xl mx-auto leading-relaxed"
+              className="text-xl mb-6 text-balance opacity-90 max-w-2xl mx-auto leading-relaxed"
             >
               Rejoignez les centaines de restaurants qui gagnent du temps chaque semaine avec ShiftPilot
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-wrap items-center justify-center gap-4 mb-10 text-sm opacity-90"
+            >
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-primary-foreground/20 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4" />
+                <span>500+ restaurants</span>
+              </div>
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-primary-foreground/20 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4" />
+                <span>10h économisées/semaine</span>
+              </div>
+              <div className="flex items-center gap-2 glass px-3 py-1.5 rounded-full border border-primary-foreground/20 backdrop-blur-sm">
+                <CheckCircle className="h-4 w-4" />
+                <span>4.9/5 satisfaction</span>
+              </div>
+            </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -469,19 +981,31 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-border py-12 bg-card">
+      <footer className="border-t border-border/50 py-12 glass backdrop-blur-md relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-                  <Calendar className="h-5 w-5 text-primary-foreground" />
-                </div>
-                <span className="text-lg font-bold">ShiftPilot</span>
+              <div className="mb-4">
+                <Logo size="sm" />
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                 La planification intelligente pour les professionnels de la restauration.
               </p>
+              <div className="flex items-center gap-3">
+                {["Twitter", "LinkedIn", "Facebook"].map((social, i) => (
+                  <motion.div
+                    key={social}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    className="w-8 h-8 glass border border-border/50 rounded-lg flex items-center justify-center cursor-pointer backdrop-blur-sm"
+                  >
+                    <span className="text-xs text-muted-foreground">{social[0]}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
             <div>
               <h3 className="font-semibold mb-4 text-foreground">Produit</h3>
@@ -539,8 +1063,20 @@ export default function LandingPage() {
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>2025 ShiftPilot. Conçu pour les restaurants, bars et brasseries.</p>
+          <div className="pt-8 border-t border-border/50 text-center">
+            <p className="text-sm text-muted-foreground mb-4">2025 ShiftPilot. Conçu pour les restaurants, bars et brasseries.</p>
+            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Shield className="h-3 w-3" />
+                Données sécurisées
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle className="h-3 w-3" />
+                RGPD conforme
+              </span>
+              <span>🇫🇷 Made in France</span>
+              <span>💚 Éco-responsable</span>
+            </div>
           </div>
         </div>
       </footer>
@@ -552,11 +1088,13 @@ function FeatureCard({
   icon,
   title,
   description,
+  details,
   color,
 }: {
   icon: React.ReactNode
   title: string
   description: string
+  details?: string[]
   color: string
 }) {
   return (
@@ -564,11 +1102,11 @@ function FeatureCard({
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
-      whileHover={{ y: -8, scale: 1.02, rotate: 5 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className="bg-card border-2 border-border rounded-xl p-6 hover:shadow-2xl transition-all relative overflow-hidden group"
+      whileHover={{ y: -8, scale: 1.03, rotate: 2 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className="glass border-2 border-border/50 rounded-xl p-6 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group backdrop-blur-md"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <div className="relative z-10">
         <motion.div
           whileHover={{ rotate: 10, scale: 1.1 }}
@@ -578,7 +1116,24 @@ function FeatureCard({
           {icon}
         </motion.div>
         <h3 className="text-xl font-bold mb-3 text-foreground">{title}</h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+        <p className="text-muted-foreground leading-relaxed mb-4">{description}</p>
+        {details && (
+          <ul className="space-y-2">
+            {details.map((detail, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-start gap-2 text-sm text-foreground"
+              >
+                <CheckCircle className="h-4 w-4 text-accent-green flex-shrink-0 mt-0.5" />
+                <span>{detail}</span>
+              </motion.li>
+            ))}
+          </ul>
+        )}
       </div>
     </motion.div>
   )
@@ -590,12 +1145,14 @@ function PricingCard({
   description,
   features,
   popular,
+  savings,
 }: {
   name: string
   price: string
   description: string
   features: string[]
   popular?: boolean
+  savings?: string
 }) {
   return (
     <motion.div
@@ -603,9 +1160,11 @@ function PricingCard({
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
       whileHover={{ y: -8, scale: popular ? 1.08 : 1.03 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      className={`bg-card border-2 rounded-2xl p-8 relative transition-all overflow-hidden group ${
-        popular ? "border-accent shadow-2xl scale-105 bg-gradient-to-br from-accent/5 to-card" : "border-border"
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className={`glass border-2 rounded-2xl p-8 relative transition-all duration-300 overflow-hidden group backdrop-blur-md ${
+        popular 
+          ? "border-accent/50 shadow-2xl scale-105 bg-gradient-to-br from-accent/10 to-card/80" 
+          : "border-border/50"
       }`}
     >
       {popular && (
@@ -620,7 +1179,20 @@ function PricingCard({
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <div className="relative z-10">
         <h3 className="text-2xl font-bold mb-2 text-foreground">{name}</h3>
-        <p className="text-muted-foreground mb-6">{description}</p>
+        <p className="text-muted-foreground mb-4">{description}</p>
+        {savings && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="mb-4"
+          >
+            <div className="inline-flex items-center gap-2 bg-accent-green/10 text-accent-green px-3 py-1 rounded-full text-xs font-semibold">
+              <Clock className="h-3 w-3" />
+              {savings}
+            </div>
+          </motion.div>
+        )}
         <div className="mb-8">
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}

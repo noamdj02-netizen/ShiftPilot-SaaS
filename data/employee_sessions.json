@@ -1,0 +1,22 @@
+[
+  {
+    "token": "emp_1763787123950_7xdikyifh",
+    "employeeId": "2cb36f2c-69e0-4c2b-8088-07ad4619d30a",
+    "email": "employe@test.com",
+    "firstName": "Jean",
+    "lastName": "Dupont",
+    "role": "Serveur",
+    "createdAt": "2025-11-22T04:52:03.952Z",
+    "expiresAt": "2025-11-29T04:52:03.950Z"
+  },
+  {
+    "token": "emp_1763787672613_qmnguzgu3",
+    "employeeId": "2cb36f2c-69e0-4c2b-8088-07ad4619d30a",
+    "email": "employe@test.com",
+    "firstName": "Jean",
+    "lastName": "Dupont",
+    "role": "Serveur",
+    "createdAt": "2025-11-22T05:01:12.614Z",
+    "expiresAt": "2025-11-29T05:01:12.613Z"
+  }
+]

@@ -74,10 +74,12 @@ export function SignupForm() {
   }
 
   return (
-    <Card className="border-border shadow-xl">
+    <Card variant="glass" className="border-border/50 shadow-xl hover:shadow-2xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle className="text-foreground">Créer un compte</CardTitle>
-        <CardDescription>Remplissez le formulaire pour commencer votre essai gratuit</CardDescription>
+        <CardDescription className="text-muted-foreground">
+          Remplissez le formulaire pour commencer votre essai gratuit
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

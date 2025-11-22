@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1763768996752",
+    "status": "completed",
+    "shifts": [],
+    "name": "DECEMBRE",
+    "startDate": "2025-12-01",
+    "endDate": "2025-12-31",
+    "minHoursPerEmployee": 8,
+    "maxHoursPerEmployee": 35,
+    "constraints": "",
+    "respectPreferences": true,
+    "balanceWorkload": true,
+    "minimizeCosts": true,
+    "createdAt": "2025-11-21T23:49:56.752Z",
+    "updatedAt": "2025-11-22T03:50:40.414Z"
+  }
+]

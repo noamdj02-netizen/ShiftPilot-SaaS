@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { Save, Loader2 } from "lucide-react"
 import { toast } from "sonner"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { PushNotificationButton } from "@/components/notifications/push-notification-button"
 
 export default function NotificationsSettingsPage() {
   const [settings, setSettings] = useState({
@@ -51,9 +52,9 @@ export default function NotificationsSettingsPage() {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>Notifications par email</CardTitle>
+          <CardTitle className="text-foreground">Notifications par email</CardTitle>
           <CardDescription>Configurez les notifications que vous souhaitez recevoir par email</CardDescription>
         </CardHeader>
         <CardContent>
@@ -121,21 +122,18 @@ export default function NotificationsSettingsPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle>Notifications en application</CardTitle>
-          <CardDescription>Configurer les notifications affichées dans l'application</CardDescription>
+          <CardTitle className="text-foreground">Notifications push</CardTitle>
+          <CardDescription>Configurez les notifications push dans votre navigateur</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="space-y-0.5">
-              <Label>Notifications push</Label>
-              <p className="text-sm text-muted-foreground">Activer les notifications push dans l'application</p>
-            </div>
-            <Switch
-              checked={settings.pushNotifications}
-              onCheckedChange={(checked) => setSettings({ ...settings, pushNotifications: checked })}
-            />
+        <CardContent className="space-y-4">
+          <PushNotificationButton userId={undefined} />
+          <div className="pt-4 border-t border-border/50">
+            <p className="text-xs text-muted-foreground">
+              Les notifications push vous permettent de recevoir des alertes en temps réel pour les nouveaux plannings,
+              changements de shifts, et autres événements importants, même lorsque l'application n'est pas ouverte.
+            </p>
           </div>
         </CardContent>
       </Card>

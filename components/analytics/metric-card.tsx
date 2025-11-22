@@ -17,20 +17,36 @@ interface MetricCardProps {
 export function MetricCard({ label, value, change, changeType, icon: Icon, delay = 0 }: MetricCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, type: "spring", stiffness: 100 }}
+      whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.2 } }}
     >
-      <Card>
+      <Card variant="glass" className="hover:shadow-xl transition-all duration-300 group">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">{label}</CardTitle>
-          <Icon className="h-4 w-4 text-muted-foreground" />
+          <CardTitle className="text-sm font-medium text-foreground">{label}</CardTitle>
+          <motion.div
+            className="p-2 rounded-lg bg-primary/10 text-primary"
+            whileHover={{ rotate: 360, scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Icon className="h-4 w-4" />
+          </motion.div>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{value}</div>
+          <motion.div 
+            className="text-2xl font-bold text-foreground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: delay + 0.1 }}
+          >
+            {value}
+          </motion.div>
           <p
-            className={`text-xs flex items-center gap-1 mt-1 ${
-              changeType === "positive" ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
+            className={`text-xs flex items-center gap-1 mt-1 font-medium ${
+              changeType === "positive" 
+                ? "text-green-600 dark:text-green-400" 
+                : "text-red-600 dark:text-red-400"
             }`}
           >
             {changeType === "positive" ? (

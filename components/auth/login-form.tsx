@@ -50,10 +50,10 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="border-border shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-foreground">Connexion</CardTitle>
-        <CardDescription>Entrez vos identifiants pour accéder à votre compte</CardDescription>
+    <Card variant="glass" className="border-border/50 shadow-2xl hover:shadow-3xl transition-all duration-300 backdrop-blur-xl bg-card/90">
+      <CardHeader className="space-y-2">
+        <CardTitle className="text-2xl font-bold text-foreground">Connexion</CardTitle>
+        <CardDescription className="text-muted-foreground">Entrez vos identifiants pour accéder à votre compte</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
