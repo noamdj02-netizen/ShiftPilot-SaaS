@@ -3,6 +3,9 @@ import { createErrorResponse, createSuccessResponse, checkRateLimit } from "@/li
 import { requireAuth } from "@/lib/auth"
 import { getEmployees, getSchedules } from "@/lib/db"
 
+// Force dynamic rendering for this route (uses cookies)
+export const dynamic = "force-dynamic"
+
 export async function GET(request: NextRequest) {
   try {
     await requireAuth()

@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // TypeScript errors should be fixed, not ignored in production
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: process.env.NODE_ENV === "development",
   },
+  // Enable image optimization for production
   images: {
-    unoptimized: true,
+    unoptimized: process.env.NODE_ENV === "development",
+    remotePatterns: [],
   },
   // PWA Configuration
   async headers() {

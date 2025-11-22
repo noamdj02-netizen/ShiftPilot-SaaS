@@ -2,124 +2,137 @@
 
 ## Déploiement sur Vercel (Recommandé)
 
-### 1. Préparation
+### Prérequis
 
-1. **Créer un compte Vercel** : [vercel.com](https://vercel.com)
+- Compte GitHub
+- Compte Vercel ([vercel.com](https://vercel.com))
+- Variables d'environnement configurées (voir `ENV_EXAMPLE.md`)
 
-2. **Installer Vercel CLI** (optionnel) :
+### Étape 1 : Push sur GitHub
+
 ```bash
-npm i -g vercel
-```
+# Vérifier les changements
+git status
 
-### 2. Déploiement via GitHub
-
-1. **Push votre code sur GitHub** :
-```bash
+# Ajouter tous les fichiers
 git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/noamdj02-netizen/ShiftPilot-PRO-21.git
+
+# Commit
+git commit -m "chore: project cleanup and optimization"
+
+# Push (si remote existe déjà)
+git push origin main
+
+# OU créer un nouveau repo
+git remote add origin https://github.com/votre-username/shiftpilot-saas.git
+git branch -M main
 git push -u origin main
 ```
 
-2. **Connecter le repo à Vercel** :
-   - Aller sur [vercel.com/new](https://vercel.com/new)
-   - Importer le repository GitHub
-   - Vercel détectera automatiquement Next.js
+### Étape 2 : Déployer sur Vercel
 
-3. **Configurer les variables d'environnement** dans Vercel :
-   - Aller dans Settings → Environment Variables
-   - Ajouter toutes les variables de `.env.local`
+#### Option A : Via l'interface Vercel (Recommandé)
 
-### 3. Variables d'environnement requises
+1. Aller sur [vercel.com/new](https://vercel.com/new)
+2. Cliquer sur "Import Git Repository"
+3. Sélectionner votre repository GitHub
+4. Vercel détectera automatiquement Next.js
+5. Cliquer sur "Deploy"
+
+#### Option B : Via Vercel CLI
+
+```bash
+# Installer Vercel CLI
+npm i -g vercel
+
+# Se connecter
+vercel login
+
+# Déployer
+vercel
+
+# Pour la production
+vercel --prod
+```
+
+### Étape 3 : Configurer les Variables d'Environnement
+
+Dans Vercel Dashboard → Settings → Environment Variables, ajouter :
+
+#### Variables Essentielles
 
 ```env
 NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://votre-domaine.vercel.app
 NEXTAUTH_URL=https://votre-domaine.vercel.app
-NEXTAUTH_SECRET=votre-secret-aleatoire
-
-# Email
-RESEND_API_KEY=votre-cle-resend
-
-# SMS (optionnel)
-TWILIO_ACCOUNT_SID=votre-sid
-TWILIO_AUTH_TOKEN=votre-token
-
-# OAuth (optionnel)
-
-# Push Notifications
-VAPID_PUBLIC_KEY=votre-cle-publique
-VAPID_PRIVATE_KEY=votre-cle-privee
+NEXTAUTH_SECRET=your-secret-here-generate-with-openssl-rand-base64-32
 ```
 
-### 4. Déploiement
+#### Variables Optionnelles (selon vos besoins)
 
-Vercel déploiera automatiquement à chaque push sur `main`.
+- **Email** : `RESEND_API_KEY`, `EMAIL_FROM`
+- **SMS** : `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER`
+- **OAuth Google** : `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`
+- **OAuth Apple** : `APPLE_CLIENT_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY`
+- **Push Notifications** : `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`
 
-## Déploiement sur Netlify
+Voir `ENV_EXAMPLE.md` pour la liste complète.
 
-1. **Connecter le repo** sur [netlify.com](https://netlify.com)
-2. **Build settings** :
-   - Build command : `npm run build`
-   - Publish directory : `.next`
-3. **Ajouter les variables d'environnement**
-4. **Déployer**
+### Étape 4 : Redéployer
 
-## Déploiement sur Railway
-
-1. **Créer un compte** sur [railway.app](https://railway.app)
-2. **Nouveau projet** → GitHub
-3. **Sélectionner le repo**
-4. **Configurer les variables d'environnement**
-5. **Déployer**
-
-## Migration vers une vraie base de données
-
-Actuellement, ShiftPilot utilise des fichiers JSON. Pour la production :
-
-### Option 1 : PostgreSQL (Recommandé)
-
-1. **Installer Prisma** :
-```bash
-npm install prisma @prisma/client
-npx prisma init
-```
-
-2. **Créer le schéma** dans `prisma/schema.prisma`
-
-3. **Migrer les données** depuis JSON vers PostgreSQL
-
-### Option 2 : MongoDB
-
-1. **Installer Mongoose** :
-```bash
-npm install mongoose
-```
-
-2. **Créer les modèles**
-
-3. **Migrer les données**
-
-## Génération des clés VAPID
-
-Pour les notifications push :
+Après avoir ajouté les variables d'environnement, redéployer :
 
 ```bash
-npm install -g web-push
-web-push generate-vapid-keys
+# Via CLI
+vercel --prod
+
+# OU via Dashboard : Cliquer sur "Redeploy"
 ```
 
-Copiez les clés dans les variables d'environnement.
+## Vérification du Déploiement
 
-## Checklist de déploiement
+### Checklist
 
+- [ ] Build réussi sur Vercel
 - [ ] Variables d'environnement configurées
-- [ ] Clés VAPID générées
-- [ ] Base de données configurée (si migration)
-- [ ] Domaine personnalisé configuré (optionnel)
-- [ ] SSL/HTTPS activé
-- [ ] Tests de déploiement effectués
-- [ ] Monitoring configuré (optionnel)
+- [ ] Application accessible sur `https://votre-domaine.vercel.app`
+- [ ] Routes API fonctionnelles
+- [ ] Authentification fonctionnelle
+- [ ] Dashboard accessible
+
+### Commandes de Test
+
+```bash
+# Tester localement avant de déployer
+pnpm run build
+pnpm run start
+
+# Vérifier que tout fonctionne
+curl https://votre-domaine.vercel.app/api/auth/me
+```
+
+## Dépannage
+
+### Build échoue
+
+1. Vérifier les logs de build sur Vercel
+2. Vérifier que toutes les dépendances sont dans `package.json`
+3. Vérifier que `pnpm-lock.yaml` est à jour
+
+### Erreurs d'environnement
+
+1. Vérifier que toutes les variables sont configurées
+2. Vérifier que `NEXTAUTH_URL` correspond à votre domaine Vercel
+3. Vérifier que les secrets sont correctement générés
+
+### Routes API ne fonctionnent pas
+
+1. Vérifier que `export const dynamic = "force-dynamic"` est présent dans les routes qui utilisent des cookies
+2. Vérifier les logs Vercel pour les erreurs spécifiques
 
 ## Support
 
-Pour toute question sur le déploiement, ouvrez une issue sur GitHub.
+Pour plus d'aide, consultez :
+- [Documentation Vercel](https://vercel.com/docs)
+- [Documentation Next.js](https://nextjs.org/docs)
+- `README.md` pour la documentation complète du projet

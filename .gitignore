@@ -109,7 +109,7 @@ yarn.lock
 .env.production.local
 .env*.local
 
-# Reports and temporary documentation
-RAPPORT_*.md
-*_REPORT.md
-*_PROGRESS.md
+# Reports and temporary documentation (keep only essential docs)
+# RAPPORT_*.md
+# *_REPORT.md
+# *_PROGRESS.md
