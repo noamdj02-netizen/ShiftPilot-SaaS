@@ -94,9 +94,10 @@ logs
 .stylelintcache
 
 # Package manager locks (keep only one)
-# pnpm-lock.yaml
-# yarn.lock
-# package-lock.json
+# This project uses pnpm, so pnpm-lock.yaml is tracked
+# Ignore other package manager lock files
+package-lock.json
+yarn.lock
 
 # Environment files (keep .env.example)
 .env
