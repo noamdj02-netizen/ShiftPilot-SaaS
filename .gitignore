@@ -84,3 +84,16 @@ logs
 *.map
 *.min.js
 *.min.css
+
+# Large files and caches
+*.cache
+.cache/
+.turbo/
+.swc/
+.eslintcache
+.stylelintcache
+
+# Package manager locks (keep only one)
+# pnpm-lock.yaml
+# yarn.lock
+# package-lock.json
