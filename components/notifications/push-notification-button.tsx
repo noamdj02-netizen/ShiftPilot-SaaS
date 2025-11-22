@@ -16,14 +16,14 @@ export function PushNotificationButton({ userId }: PushNotificationButtonProps) 
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
-    if ("Notification" in window) {
+    if (typeof window !== "undefined" && "Notification" in window) {
       setPermission(Notification.permission)
       checkSubscription()
     }
   }, [])
 
   const checkSubscription = async () => {
-    if ("serviceWorker" in navigator) {
+    if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
       const registration = await navigator.serviceWorker.ready
       const subscription = await registration.pushManager.getSubscription()
       setIsSubscribed(!!subscription)
@@ -31,7 +31,7 @@ export function PushNotificationButton({ userId }: PushNotificationButtonProps) 
   }
 
   const handleEnable = async () => {
-    if (!("Notification" in window)) {
+    if (typeof window === "undefined" || !("Notification" in window)) {
       toast.error("Votre navigateur ne supporte pas les notifications")
       return
     }
@@ -39,7 +39,7 @@ export function PushNotificationButton({ userId }: PushNotificationButtonProps) 
     const granted = await requestNotificationPermission()
     if (granted) {
       setPermission("granted")
-      if (userId && "serviceWorker" in navigator) {
+      if (userId && typeof navigator !== "undefined" && "serviceWorker" in navigator) {
         subscribeToNotifications(userId)
         setIsSubscribed(true)
         toast.success("Notifications activées")
@@ -51,7 +51,7 @@ export function PushNotificationButton({ userId }: PushNotificationButtonProps) 
   }
 
   const handleDisable = async () => {
-    if ("serviceWorker" in navigator) {
+    if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
       const registration = await navigator.serviceWorker.ready
       const subscription = await registration.pushManager.getSubscription()
       if (subscription) {
@@ -62,7 +62,8 @@ export function PushNotificationButton({ userId }: PushNotificationButtonProps) 
     }
   }
 
-  if (!("Notification" in window)) {
+  // Vérifier window uniquement côté client
+  if (typeof window === "undefined" || !("Notification" in window)) {
     return null
   }
 

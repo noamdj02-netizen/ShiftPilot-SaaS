@@ -12,15 +12,12 @@ import {
   LogOut,
   User,
   Plus,
-  DollarSign,
   CheckCircle2,
   XCircle,
   AlertCircle,
   Loader2,
   BarChart3,
   Clock3,
-  Bell,
-  Download,
   Settings,
   Award,
   Target,
@@ -31,6 +28,7 @@ import { Badge } from "@/components/ui/badge"
 import { AnimatedBackground } from "@/components/animations/animated-background"
 import { PageTransition } from "@/components/animations/page-transition"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 import { format, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, parseISO } from "date-fns"
 import { fr } from "date-fns/locale"
 import {
@@ -839,8 +837,4 @@ export default function EmployeeDashboardPage() {
       </div>
     </PageTransition>
   )
-}
-
-function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(" ")
 }

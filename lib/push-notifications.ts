@@ -1,7 +1,7 @@
 "use client"
 
 export async function requestNotificationPermission(): Promise<boolean> {
-  if (!("Notification" in window)) {
+  if (typeof window === "undefined" || !("Notification" in window)) {
     console.warn("This browser does not support notifications")
     return false
   }
@@ -22,7 +22,7 @@ export async function showNotification(
   title: string,
   options?: NotificationOptions
 ): Promise<Notification | null> {
-  if (!("Notification" in window)) {
+  if (typeof window === "undefined" || !("Notification" in window)) {
     return null
   }
 
@@ -50,7 +50,7 @@ export async function showNotification(
 }
 
 export async function subscribeToNotifications(userId: string): Promise<boolean> {
-  if (!("serviceWorker" in navigator)) {
+  if (typeof window === "undefined" || typeof navigator === "undefined" || !("serviceWorker" in navigator)) {
     return false
   }
 
