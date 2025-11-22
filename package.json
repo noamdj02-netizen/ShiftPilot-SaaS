@@ -1,7 +1,22 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "shiftpilot",
+  "version": "1.0.0",
+  "description": "Gestion intelligente de plannings pour restaurants avec IA",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noamdj02-netizen/ShiftPilot-PRO-21.git"
+  },
+  "keywords": [
+    "planning",
+    "restaurant",
+    "saas",
+    "shift-management",
+    "pwa",
+    "nextjs"
+  ],
+  "author": "ShiftPilot Team",
+  "license": "MIT",
   "scripts": {
     "build": "next build",
     "dev": "next dev",

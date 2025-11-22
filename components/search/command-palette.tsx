@@ -148,52 +148,40 @@ export function CommandPalette() {
   }, [])
 
   return (
-    <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl p-0 overflow-hidden">
-          <Command className="rounded-lg">
-            <div className="flex items-center border-b border-border px-4">
-              <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-              <Command.Input
-                placeholder="Rechercher une commande, une page, une action... (Cmd+K)"
-                value={search}
-                onValueChange={setSearch}
-                className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-              />
-            </div>
-            <Command.List className="max-h-[400px] overflow-y-auto p-2">
-              <Command.Empty className="py-6 text-center text-sm text-muted-foreground">
-                Aucun résultat trouvé.
-              </Command.Empty>
-              {Object.entries(groupedCommands).map(([group, items]) => (
-                <div key={group}>
-                  <Command.Group heading={group} className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
-                    {items.map((cmd) => {
-                      const Icon = cmd.icon
-                      return (
-                        <Command.Item
-                          key={cmd.id}
-                          value={cmd.id}
-                          onSelect={() => {
-                            cmd.action()
-                            setOpen(false)
-                            setSearch("")
-                          }}
-                          className="flex items-center gap-3 rounded-md px-3 py-2 cursor-pointer aria-selected:bg-accent aria-selected:text-accent-foreground"
-                        >
-                          <Icon className="h-4 w-4 shrink-0" />
-                          <span>{cmd.label}</span>
-                        </Command.Item>
-                      )
-                    })}
-                  </Command.Group>
-                </div>
-              ))}
-            </Command.List>
-          </Command>
-        </DialogContent>
-      </Dialog>
-    </>
+    <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandInput
+        placeholder="Rechercher une commande, une page, une action... (Cmd+K)"
+        value={search}
+        onValueChange={setSearch}
+      />
+      <CommandList>
+        <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
+          Aucun résultat trouvé.
+        </CommandEmpty>
+        {Object.entries(groupedCommands).map(([group, items]) => (
+          <CommandGroup key={group} heading={group}>
+            {items.map((cmd) => {
+              const Icon = cmd.icon
+              return (
+                <CommandItem
+                  key={cmd.id}
+                  value={cmd.id}
+                  onSelect={() => {
+                    cmd.action()
+                    setOpen(false)
+                    setSearch("")
+                  }}
+                  className="flex items-center gap-3 cursor-pointer"
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span>{cmd.label}</span>
+                </CommandItem>
+              )
+            })}
+          </CommandGroup>
+        ))}
+      </CommandList>
+    </CommandDialog>
   )
 }
 
