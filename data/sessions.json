@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "1763788624724",
+    "userId": "1",
+    "token": "ZGVtb0BzaGlmdHBpbG90LmNvbToxNzYzNzg4NjI0NzE0OjE=",
+    "ipAddress": "::1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "createdAt": "2025-11-22T05:17:04.724Z",
+    "lastActiveAt": "2025-11-22T05:17:04.724Z",
+    "expiresAt": "2025-12-22T05:17:04.724Z"
+  }
+]

@@ -2,34 +2,43 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Download, X, CheckCircle2 } from "lucide-react"
+import { Download, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { toast } from "sonner"
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>
+}
+
 export function PWAInstaller() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [isInstalled, setIsInstalled] = useState(false)
-  const [isIOS, setIsIOS] = useState(false)
-  const [showIOSInstructions, setShowIOSInstructions] = useState(false)
 
   useEffect(() => {
-    // Check if already installed
+    // Vérifier si l'app est déjà installée
     if (window.matchMedia("(display-mode: standalone)").matches) {
       setIsInstalled(true)
       return
     }
 
-    // Check if iOS
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-    setIsIOS(isIOSDevice)
-
-    // Listen for beforeinstallprompt event
+    // Écouter l'événement beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
-      setDeferredPrompt(e)
+      setDeferredPrompt(e as BeforeInstallPromptEvent)
+      setShowInstallPrompt(true)
     }
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+
+    // Vérifier si l'app a été installée
+    window.addEventListener("appinstalled", () => {
+      setIsInstalled(true)
+      setShowInstallPrompt(false)
+      setDeferredPrompt(null)
+      toast.success("ShiftPilot a été installé avec succès !")
+    })
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
@@ -37,144 +46,81 @@ export function PWAInstaller() {
   }, [])
 
   const handleInstallClick = async () => {
-    if (isIOS) {
-      setShowIOSInstructions(true)
-      return
-    }
-
     if (!deferredPrompt) {
-      toast.info("L'application est déjà installée ou ne peut pas être installée sur cet appareil")
+      toast.error("L'installation n'est pas disponible sur votre appareil")
       return
     }
 
-    // Show the install prompt
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
+    try {
+      await deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
 
-    if (outcome === "accepted") {
-      toast.success("Application installée avec succès !")
-      setIsInstalled(true)
-    } else {
-      toast.info("Installation annulée")
+      if (outcome === "accepted") {
+        toast.success("Installation en cours...")
+        setDeferredPrompt(null)
+        setShowInstallPrompt(false)
+      } else {
+        toast.info("Installation annulée")
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'installation:", error)
+      toast.error("Erreur lors de l'installation")
     }
-
-    setDeferredPrompt(null)
   }
 
-  if (isInstalled) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="fixed bottom-4 right-4 z-50"
-      >
-        <div className="bg-accent-green/10 border border-accent-green/20 rounded-lg p-3 flex items-center gap-2 text-sm text-accent-green">
-          <CheckCircle2 className="h-4 w-4" />
-          <span>Application installée</span>
-        </div>
-      </motion.div>
-    )
-  }
-
-  if (!deferredPrompt && !isIOS) {
+  if (isInstalled || !showInstallPrompt) {
     return null
   }
 
   return (
-    <>
-      <AnimatePresence>
-        {deferredPrompt && (
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            className="fixed bottom-4 right-4 z-50 max-w-sm"
-          >
-            <div className="bg-card border border-border rounded-lg shadow-xl p-4 backdrop-blur-md">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">Installer ShiftPilot</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Installez l'application pour un accès rapide et des notifications push
-                  </p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6"
-                  onClick={() => setDeferredPrompt(null)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+    <AnimatePresence>
+      {showInstallPrompt && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50"
+        >
+          <div className="glass border border-border/50 rounded-xl p-4 shadow-2xl backdrop-blur-md">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground mb-1">
+                  Installer ShiftPilot
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Installez l'application pour un accès rapide et une meilleure expérience
+                </p>
               </div>
-              <div className="flex gap-2">
-                <Button onClick={handleInstallClick} className="flex-1" size="sm">
-                  <Download className="h-4 w-4 mr-2" />
-                  Installer
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setDeferredPrompt(null)}
-                  size="sm"
-                >
-                  Plus tard
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showIOSInstructions && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setShowIOSInstructions(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              className="bg-card border border-border rounded-lg shadow-xl p-6 max-w-md w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-foreground">Installer sur iOS</h3>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowIOSInstructions(false)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              <ol className="space-y-3 text-sm text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="font-bold text-foreground">1.</span>
-                  <span>Appuyez sur le bouton <strong className="text-foreground">Partager</strong> dans Safari</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="font-bold text-foreground">2.</span>
-                  <span>Faites défiler et appuyez sur <strong className="text-foreground">Sur l'écran d'accueil</strong></span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="font-bold text-foreground">3.</span>
-                  <span>Appuyez sur <strong className="text-foreground">Ajouter</strong></span>
-                </li>
-              </ol>
               <Button
-                onClick={() => setShowIOSInstructions(false)}
-                className="w-full mt-6"
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 shrink-0"
+                onClick={() => setShowInstallPrompt(false)}
               >
-                Compris
+                <X className="h-4 w-4" />
               </Button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            </div>
+            <div className="flex gap-2 mt-4">
+              <Button
+                onClick={handleInstallClick}
+                className="flex-1"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Installer
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowInstallPrompt(false)}
+              >
+                Plus tard
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 

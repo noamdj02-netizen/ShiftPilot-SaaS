@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { SearchBar } from "./search-bar"
-import { CommandPalette } from "@/components/command-palette/command-palette"
+import { PushNotificationManager } from "@/components/push/push-notification-manager"
 import Link from "next/link"
 import {
   DropdownMenu,
@@ -32,7 +32,6 @@ export function DashboardHeader() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false)
 
   useEffect(() => {
     // Get user info from session
@@ -113,6 +112,7 @@ export function DashboardHeader() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <PushNotificationManager />
           
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />

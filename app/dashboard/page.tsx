@@ -17,7 +17,7 @@ import { AlertsWidget } from "@/components/dashboard/alerts-widget"
 import { SmartSuggestions } from "@/components/dashboard/smart-suggestions"
 import { DraggableDashboard } from "@/components/dashboard/draggable-dashboard"
 import { ResetLayoutButton } from "@/components/dashboard/reset-layout-button"
-import { RealtimeDashboard } from "@/components/dashboard/realtime-dashboard"
+import { RealtimeStats } from "@/components/dashboard/realtime-stats"
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
@@ -89,7 +89,7 @@ export default function DashboardPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
           >
-            <StatsCards />
+            <RealtimeStats />
           </motion.div>
 
           <motion.div
@@ -98,15 +98,6 @@ export default function DashboardPage() {
             transition={{ delay: 0.25, type: "spring", stiffness: 100 }}
           >
             <DashboardOverview />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-            className="mb-6"
-          >
-            <RealtimeDashboard />
           </motion.div>
 
           <DraggableDashboard

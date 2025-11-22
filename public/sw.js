@@ -1,121 +1,143 @@
-// Service Worker for ShiftPilot PWA
-const CACHE_NAME = "shiftpilot-v1"
-const urlsToCache = [
-  "/",
-  "/login",
-  "/dashboard",
-  "/employee",
-  "/manifest.json",
-  "/offline.html"
+// Service Worker pour ShiftPilot PWA
+const CACHE_NAME = 'shiftpilot-v1'
+const RUNTIME_CACHE = 'shiftpilot-runtime-v1'
+
+// Assets à mettre en cache au moment de l'installation
+const PRECACHE_ASSETS = [
+  '/',
+  '/dashboard',
+  '/login',
+  '/employee/login',
+  '/icon-light-32x32.png',
+  '/icon-dark-32x32.png',
+  '/apple-icon.png',
 ]
 
-// Install event - cache resources
-self.addEventListener("install", (event) => {
+// Installation du Service Worker
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("[Service Worker] Caching app shell")
-      return cache.addAll(urlsToCache)
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        console.log('[SW] Pre-caching assets')
+        return cache.addAll(PRECACHE_ASSETS)
+      })
+      .then(() => self.skipWaiting())
   )
-  self.skipWaiting()
 })
 
-// Activate event - clean up old caches
-self.addEventListener("activate", (event) => {
+// Activation du Service Worker
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
+          .filter((cacheName) => {
+            return cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE
+          })
+          .map((cacheName) => {
+            console.log('[SW] Deleting old cache:', cacheName)
+            return caches.delete(cacheName)
+          })
       )
     })
+    .then(() => self.clients.claim())
   )
-  return self.clients.claim()
 })
 
-// Fetch event - serve from cache, fallback to network
-self.addEventListener("fetch", (event) => {
+// Stratégie de cache : Network First, puis Cache
+self.addEventListener('fetch', (event) => {
+  // Ignorer les requêtes non-GET
+  if (event.request.method !== 'GET') {
+    return
+  }
+
+  // Ignorer les requêtes vers l'API (toujours en ligne)
+  if (event.request.url.includes('/api/')) {
+    return
+  }
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Return cached version or fetch from network
-      return response || fetch(event.request).catch(() => {
-        // If offline and page request, return offline page
-        if (event.request.mode === "navigate") {
-          return caches.match("/offline.html")
-        }
+    fetch(event.request)
+      .then((response) => {
+        // Cloner la réponse pour la mettre en cache
+        const responseToCache = response.clone()
+        
+        caches.open(RUNTIME_CACHE).then((cache) => {
+          cache.put(event.request, responseToCache)
+        })
+        
+        return response
       })
-    })
+      .catch(() => {
+        // Si le réseau échoue, utiliser le cache
+        return caches.match(event.request)
+      })
   )
 })
 
-// Push notification event
-self.addEventListener("push", (event) => {
+// Gestion des notifications push
+self.addEventListener('push', (event) => {
+  const data = event.data ? event.data.json() : {}
+  const title = data.title || 'ShiftPilot'
   const options = {
-    body: event.data ? event.data.text() : "Nouvelle notification ShiftPilot",
-    icon: "/icon-192x192.png",
-    badge: "/icon-192x192.png",
-    vibrate: [200, 100, 200],
-    tag: "shiftpilot-notification",
-    requireInteraction: false,
-    actions: [
-      {
-        action: "view",
-        title: "Voir",
-        icon: "/icon-192x192.png"
-      },
-      {
-        action: "close",
-        title: "Fermer"
-      }
-    ],
-    data: {
-      url: "/",
-      ...(event.data ? JSON.parse(event.data.text()) : {})
-    }
+    body: data.body || 'Vous avez une nouvelle notification',
+    icon: '/icon-light-32x32.png',
+    badge: '/icon-light-32x32.png',
+    image: data.image,
+    data: data.data || {},
+    tag: data.tag || 'default',
+    requireInteraction: data.requireInteraction || false,
+    actions: data.actions || [],
+    vibrate: data.vibrate || [200, 100, 200],
   }
 
   event.waitUntil(
-    self.registration.showNotification("ShiftPilot", options)
+    self.registration.showNotification(title, options)
   )
 })
 
-// Notification click event
-self.addEventListener("notificationclick", (event) => {
+// Gestion des clics sur les notifications
+self.addEventListener('notificationclick', (event) => {
   event.notification.close()
 
-  const action = event.action || "view"
-  const urlToOpen = event.notification.data?.url || "/"
+  const data = event.notification.data
+  const urlToOpen = data.url || '/dashboard'
 
-  if (action === "view") {
-    event.waitUntil(
-      clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
-        // Check if there's already a window/tab open
-        for (const client of clientList) {
-          if (client.url === urlToOpen && "focus" in client) {
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((clientList) => {
+        // Si une fenêtre est déjà ouverte, la focus
+        for (let i = 0; i < clientList.length; i++) {
+          const client = clientList[i]
+          if (client.url === urlToOpen && 'focus' in client) {
             return client.focus()
           }
         }
-        // Otherwise, open a new window/tab
+        // Sinon, ouvrir une nouvelle fenêtre
         if (clients.openWindow) {
           return clients.openWindow(urlToOpen)
         }
       })
-    )
-  }
+  )
 })
 
-// Background sync event (for offline actions)
-self.addEventListener("sync", (event) => {
-  if (event.tag === "sync-shifts") {
+// Gestion des actions sur les notifications
+self.addEventListener('notificationclose', (event) => {
+  // Analytics ou logging si nécessaire
+  console.log('[SW] Notification closed:', event.notification.tag)
+})
+
+// Message depuis le client pour mettre à jour le cache
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
+  
+  if (event.data && event.data.type === 'CACHE_URLS') {
     event.waitUntil(
-      // Sync shifts when back online
-      syncShifts()
+      caches.open(RUNTIME_CACHE).then((cache) => {
+        return cache.addAll(event.data.urls)
+      })
     )
   }
 })
-
-async function syncShifts() {
-  // Implementation for syncing shifts when back online
-  console.log("[Service Worker] Syncing shifts...")
-}
