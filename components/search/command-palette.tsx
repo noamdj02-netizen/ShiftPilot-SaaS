@@ -1,11 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Command } from "cmdk"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 import { Search, Calendar, Users, BarChart3, Settings, FileText, User, LogOut, Plus, Bell } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
 import { toast } from "sonner"
 
 interface CommandItem {
