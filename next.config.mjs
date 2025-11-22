@@ -9,6 +9,12 @@ const nextConfig = {
     unoptimized: process.env.NODE_ENV === "development",
     remotePatterns: [],
   },
+  // Performance optimizations
+  reactStrictMode: true,
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   // PWA Configuration
   async headers() {
     return [

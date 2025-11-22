@@ -38,7 +38,7 @@ export function OAuthButtons({ mode = "login" }: { mode?: "login" | "signup" }) 
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full border-[#3b82f6] text-[#3b82f6] hover:bg-[#3b82f6]/10 hover:border-[#3b82f6] shadow-sm hover:shadow-md transition-all"
             onClick={() => handleOAuth("google")}
             disabled={isLoading !== null}
           >
@@ -72,7 +72,7 @@ export function OAuthButtons({ mode = "login" }: { mode?: "login" | "signup" }) 
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A]/10 hover:border-[#1A1A1A] shadow-sm hover:shadow-md transition-all dark:border-foreground dark:text-foreground dark:hover:bg-foreground/10"
             onClick={() => handleOAuth("apple")}
             disabled={isLoading !== null}
           >

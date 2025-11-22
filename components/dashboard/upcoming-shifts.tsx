@@ -59,16 +59,17 @@ export function UpcomingShifts() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ 
-                delay: index * 0.08, 
+                delay: index * 0.05, 
                 type: "spring", 
-                stiffness: 200, 
-                damping: 20 
+                stiffness: 300, 
+                damping: 25 
               }}
               whileHover={{ 
                 x: 4, 
-                scale: 1.01,
-                transition: { duration: 0.2 } 
+                scale: 1.02,
+                transition: { duration: 0.15, type: "spring", stiffness: 400 } 
               }}
+              whileTap={{ scale: 0.98 }}
               className="flex items-center gap-4 p-3 rounded-lg border border-border/50 hover:bg-muted/50 hover:shadow-md transition-all cursor-pointer backdrop-blur-sm"
             >
               <motion.div

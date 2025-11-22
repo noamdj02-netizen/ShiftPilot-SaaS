@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transition-shadow',
+        default: 'bg-[#1A1A1A] text-white hover:bg-[#2A2A2A] shadow-md hover:shadow-lg transition-shadow',
         destructive:
           'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 shadow-md hover:shadow-lg transition-shadow',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground hover:shadow-md dark:bg-input/30 dark:border-input dark:hover:bg-input/50 transition-shadow',
+          'border-2 border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground hover:border-accent hover:shadow-md dark:bg-input/30 dark:border-input dark:text-foreground dark:hover:bg-input/50 dark:hover:text-foreground transition-shadow',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm hover:shadow-md transition-shadow',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm hover:shadow-md transition-shadow',
         ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          'text-foreground hover:bg-accent hover:text-accent-foreground dark:text-foreground dark:hover:bg-accent/50 dark:hover:text-foreground',
         glass:
           'glass border border-border/50 bg-card/80 backdrop-blur-md text-foreground hover:bg-card/90 hover:shadow-xl transition-all shadow-lg',
         link: 'text-primary underline-offset-4 hover:underline',

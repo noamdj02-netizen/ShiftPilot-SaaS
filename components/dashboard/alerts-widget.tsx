@@ -36,23 +36,39 @@ export function AlertsWidget() {
         {
           id: "1",
           type: "warning",
-          title: "Staff manquant demain",
-          message: "2 postes non pourvus pour le service de demain soir",
-          timestamp: "Il y a 30 min",
+          title: "Serveur manquant pour le service du soir",
+          message: "Poste serveur non pourvu pour le service de ce soir (19h-23h). Action requise.",
+          timestamp: "Il y a 15 min",
           action: { label: "Voir le planning", href: "/dashboard/schedules" },
         },
         {
           id: "2",
-          type: "info",
-          title: "Planning publié",
-          message: "Le planning de la semaine 4 a été publié avec succès",
-          timestamp: "Il y a 2h",
+          type: "error",
+          title: "Pause non respectée : Louise (serveuse)",
+          message: "Louise n'a pas eu sa pause légale de 20 minutes entre les services midi et soir.",
+          timestamp: "Il y a 1h",
+          action: { label: "Corriger", href: "/dashboard/schedules" },
         },
         {
           id: "3",
+          type: "warning",
+          title: "Heures sup' détectées : Matteo (runner)",
+          message: "Matteo a dépassé ses 35h/semaine. 3 heures supplémentaires détectées.",
+          timestamp: "Il y a 2h",
+          action: { label: "Voir détails", href: "/dashboard/analytics" },
+        },
+        {
+          id: "4",
+          type: "info",
+          title: "Planning publié",
+          message: "Le planning de la semaine 4 a été publié avec succès. Tous les employés ont été notifiés.",
+          timestamp: "Il y a 3h",
+        },
+        {
+          id: "5",
           type: "success",
           title: "Tous les shifts couverts",
-          message: "Excellent ! Tous les shifts de la semaine sont couverts",
+          message: "Excellent ! Tous les shifts de la semaine sont couverts et optimisés.",
           timestamp: "Il y a 1 jour",
         },
       ]
@@ -72,26 +88,26 @@ export function AlertsWidget() {
   const getIcon = (type: Alert["type"]) => {
     switch (type) {
       case "warning":
-        return <AlertCircle className="h-4 w-4 text-accent" />
+        return <AlertCircle className="h-4 w-4 text-[#FF7849]" />
       case "error":
-        return <AlertCircle className="h-4 w-4 text-destructive" />
+        return <AlertCircle className="h-4 w-4 text-[#991B1B]" />
       case "success":
-        return <CheckCircle2 className="h-4 w-4 text-accent-green" />
+        return <CheckCircle2 className="h-4 w-4 text-[#3DAD7A]" />
       default:
-        return <Clock className="h-4 w-4 text-chart-1" />
+        return <Clock className="h-4 w-4 text-[#3b82f6]" />
     }
   }
 
   const getColor = (type: Alert["type"]) => {
     switch (type) {
       case "warning":
-        return "bg-accent/10 border-accent/20 text-accent"
+        return "bg-[#FF7849]/10 border-[#FF7849]/30 text-[#FF7849]"
       case "error":
-        return "bg-destructive/10 border-destructive/20 text-destructive"
+        return "bg-[#991B1B]/10 border-[#991B1B]/30 text-[#991B1B]"
       case "success":
-        return "bg-accent-green/10 border-accent-green/20 text-accent-green"
+        return "bg-[#3DAD7A]/10 border-[#3DAD7A]/30 text-[#3DAD7A]"
       default:
-        return "bg-chart-1/10 border-chart-1/20 text-chart-1"
+        return "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6]"
     }
   }
 
@@ -113,7 +129,7 @@ export function AlertsWidget() {
       <CardHeader className="pb-3">
         <CardTitle className="text-foreground flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertCircle className={`h-5 w-5 ${hasCriticalAlerts ? "text-accent" : "text-muted-foreground"}`} />
+            <AlertCircle className={`h-5 w-5 ${hasCriticalAlerts ? "text-[#FF7849]" : "text-muted-foreground"}`} />
             Alertes
             {hasCriticalAlerts && (
               <Badge variant="destructive" className="ml-2">
@@ -131,7 +147,7 @@ export function AlertsWidget() {
               animate={{ opacity: 1 }}
               className="text-center py-8 text-muted-foreground text-sm"
             >
-              <CheckCircle2 className="h-8 w-8 mx-auto mb-2 text-accent-green opacity-50" />
+              <CheckCircle2 className="h-8 w-8 mx-auto mb-2 text-[#3DAD7A] opacity-50" />
               <p>Aucune alerte</p>
             </motion.div>
           ) : (

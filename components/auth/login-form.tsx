@@ -78,7 +78,7 @@ export function LoginForm() {
               <Label htmlFor="password" className="text-foreground">
                 Mot de passe
               </Label>
-              <a href="#" className="text-sm text-accent hover:underline">
+              <a href="#" className="text-sm text-[#3b82f6] hover:text-[#3b82f6]/80 hover:underline font-medium">
                 Mot de passe oublié ?
               </a>
             </div>
@@ -106,8 +106,12 @@ export function LoginForm() {
             )}
           </AnimatePresence>
 
-          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-            <Button type="submit" className="w-full h-11 bg-primary hover:bg-primary/90" disabled={isLoading}>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button 
+              type="submit" 
+              className="w-full h-11 bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white shadow-lg hover:shadow-xl transition-all" 
+              disabled={isLoading}
+            >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

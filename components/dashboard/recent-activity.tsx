@@ -11,8 +11,8 @@ const activities = [
     description: "Planning de la semaine 4 généré automatiquement",
     time: "Il y a 2h",
     icon: Calendar,
-    color: "text-chart-1",
-    bgColor: "bg-chart-1/10",
+    color: "text-[#FF7849]",
+    bgColor: "bg-[#FF7849]/10",
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const activities = [
     description: "Marie Dubois a été ajoutée à l'équipe",
     time: "Il y a 5h",
     icon: UserPlus,
-    color: "text-chart-2",
-    bgColor: "bg-chart-2/10",
+    color: "text-[#3b82f6]",
+    bgColor: "bg-[#3b82f6]/10",
   },
   {
     id: 3,
@@ -29,8 +29,8 @@ const activities = [
     description: "Thomas a échangé son shift avec Sophie",
     time: "Hier",
     icon: RefreshCw,
-    color: "text-chart-3",
-    bgColor: "bg-chart-3/10",
+    color: "text-[#3DAD7A]",
+    bgColor: "bg-[#3DAD7A]/10",
   },
   {
     id: 4,
@@ -38,8 +38,8 @@ const activities = [
     description: "Rapport mensuel de janvier disponible",
     time: "Hier",
     icon: FileText,
-    color: "text-chart-4",
-    bgColor: "bg-chart-4/10",
+    color: "text-[#8B5CF6]",
+    bgColor: "bg-[#8B5CF6]/10",
   },
 ]
 

@@ -118,12 +118,12 @@ const getRoleColor = (role: string) => {
   const roleColor = getThemeRoleColor(role)
   // Map theme colors to Tailwind classes
   const colors: Record<string, string> = {
-    "#3B82F6": "bg-blue-500 border-blue-500/40 text-white",
-    "#FF7849": "bg-orange-500 border-orange-500/40 text-white",
-    "#3DAD7A": "bg-green-500 border-green-500/40 text-white",
-    "#991B1B": "bg-red-800 border-red-800/40 text-white",
-    "#8B5CF6": "bg-purple-500 border-purple-500/40 text-white",
-    "#DAA520": "bg-yellow-600 border-yellow-600/40 text-white",
+    "#3B82F6": "bg-[#3b82f6] border-[#3b82f6]/40 text-white shadow-sm",
+    "#FF7849": "bg-[#FF7849] border-[#FF7849]/40 text-white shadow-sm",
+    "#3DAD7A": "bg-[#3DAD7A] border-[#3DAD7A]/40 text-white shadow-sm",
+    "#991B1B": "bg-[#991B1B] border-[#991B1B]/40 text-white shadow-sm",
+    "#8B5CF6": "bg-[#8B5CF6] border-[#8B5CF6]/40 text-white shadow-sm",
+    "#DAA520": "bg-[#DAA520] border-[#DAA520]/40 text-white shadow-sm",
   }
   
   // Use role-based color from theme
@@ -133,13 +133,13 @@ const getRoleColor = (role: string) => {
   
   // Fallback to default mapping
   const defaultColors: Record<string, string> = {
-    Serveur: "bg-blue-500 border-blue-500/40 text-white",
-    Barman: "bg-orange-500 border-orange-500/40 text-white",
-    Runner: "bg-green-500 border-green-500/40 text-white",
-    "Chef de rang": "bg-purple-500 border-purple-500/40 text-white",
-    Cuisine: "bg-red-800 border-red-800/40 text-white",
-    Chef: "bg-purple-500 border-purple-500/40 text-white",
-    Manager: "bg-yellow-600 border-yellow-600/40 text-white",
+    Serveur: "bg-[#3b82f6] border-[#3b82f6]/40 text-white shadow-sm",
+    Barman: "bg-[#FF7849] border-[#FF7849]/40 text-white shadow-sm",
+    Runner: "bg-[#3DAD7A] border-[#3DAD7A]/40 text-white shadow-sm",
+    "Chef de rang": "bg-[#8B5CF6] border-[#8B5CF6]/40 text-white shadow-sm",
+    Cuisine: "bg-[#991B1B] border-[#991B1B]/40 text-white shadow-sm",
+    Chef: "bg-[#8B5CF6] border-[#8B5CF6]/40 text-white shadow-sm",
+    Manager: "bg-[#DAA520] border-[#DAA520]/40 text-white shadow-sm",
   }
   return defaultColors[role] || "bg-muted border-muted-foreground/20"
 }
@@ -275,10 +275,16 @@ export function CalendarView({ schedule }: CalendarViewProps) {
                     key={shift.id}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + dayIndex * 0.05 + shiftIndex * 0.05 }}
-                    whileHover={{ scale: 1.02 }}
+                    transition={{ 
+                      delay: 0.3 + dayIndex * 0.05 + shiftIndex * 0.05,
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25
+                    }}
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                     className={cn(
-                      "rounded-lg px-2 py-1.5 text-xs cursor-pointer border-2 transition-all",
+                      "rounded-lg px-2 py-1.5 text-xs cursor-pointer border-2 transition-all duration-200 hover:shadow-lg",
                       getRoleColor(shift.role),
                     )}
                   >
@@ -298,15 +304,15 @@ export function CalendarView({ schedule }: CalendarViewProps) {
           <p className="text-sm font-medium text-muted-foreground mb-3">Légende des rôles</p>
           <div className="flex flex-wrap gap-3">
             {[
-              { role: "Serveur", color: "bg-chart-1" },
-              { role: "Barman", color: "bg-chart-2" },
-              { role: "Runner", color: "bg-chart-3" },
-              { role: "Chef de rang", color: "bg-chart-4" },
-              { role: "Cuisine", color: "bg-chart-5" },
+              { role: "Serveur", color: "bg-[#3b82f6]" },
+              { role: "Barman", color: "bg-[#FF7849]" },
+              { role: "Runner", color: "bg-[#3DAD7A]" },
+              { role: "Chef de rang", color: "bg-[#8B5CF6]" },
+              { role: "Cuisine", color: "bg-[#991B1B]" },
             ].map((item) => (
               <div key={item.role} className="flex items-center gap-2">
-                <div className={cn("h-3 w-3 rounded", item.color)} />
-                <span className="text-sm text-foreground">{item.role}</span>
+                <div className={cn("h-3 w-3 rounded shadow-sm", item.color)} />
+                <span className="text-sm text-foreground font-medium">{item.role}</span>
               </div>
             ))}
           </div>

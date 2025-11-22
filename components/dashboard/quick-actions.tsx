@@ -14,6 +14,7 @@ const actions = [
     label: "Créer un planning",
     variant: "default" as const,
     delay: 0,
+    color: "bg-[#3b82f6] hover:bg-[#3b82f6]/90",
   },
   {
     href: "/dashboard/schedules/generate",
@@ -21,6 +22,7 @@ const actions = [
     label: "Générer avec l'IA",
     variant: "outline" as const,
     delay: 0.1,
+    color: "border-[#FF7849] text-[#FF7849] hover:bg-[#FF7849]/10",
   },
   {
     href: "/dashboard/employees/new",
@@ -28,6 +30,7 @@ const actions = [
     label: "Ajouter un employé",
     variant: "outline" as const,
     delay: 0.2,
+    color: "border-[#3DAD7A] text-[#3DAD7A] hover:bg-[#3DAD7A]/10",
   },
   {
     href: "/dashboard/schedules",
@@ -35,6 +38,7 @@ const actions = [
     label: "Exporter les plannings",
     variant: "outline" as const,
     delay: 0.3,
+    color: "border-[#8B5CF6] text-[#8B5CF6] hover:bg-[#8B5CF6]/10",
   },
 ]
 
@@ -62,7 +66,7 @@ export function QuickActions() {
               whileTap={{ scale: 0.98 }}
             >
               <Button
-                className="w-full justify-start shadow-sm hover:shadow-md transition-shadow"
+                className={`w-full justify-start shadow-sm hover:shadow-md transition-shadow ${action.color}`}
                 variant={action.variant}
                 asChild
               >

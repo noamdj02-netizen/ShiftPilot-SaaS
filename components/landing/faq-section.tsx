@@ -7,6 +7,36 @@ import { cn } from "@/lib/utils"
 
 const faqs = [
   {
+    question: "Comment fonctionne ShiftPilot ?",
+    answer:
+      "ShiftPilot est une plateforme intelligente de gestion de plannings pour restaurants. Vous configurez votre équipe et vos contraintes, puis notre IA génère automatiquement le planning optimal. Vous pouvez modifier, publier et partager avec votre équipe en quelques clics. Tout est automatisé pour vous faire gagner du temps.",
+  },
+  {
+    question: "Puis-je l'utiliser dans plusieurs restaurants ?",
+    answer:
+      "Oui ! Selon votre formule (Brasserie ou Groupe), vous pouvez gérer plusieurs établissements depuis un seul compte. Parfait pour les chaînes de restaurants, groupes hôteliers ou multi-sites. Chaque établissement a son propre planning, mais vous gardez une vue d'ensemble centralisée.",
+  },
+  {
+    question: "Comment fonctionne l'IA ?",
+    answer:
+      "Notre intelligence artificielle analyse vos contraintes (disponibilités, compétences, règles légales), l'affluence prévue et vos préférences. Elle génère ensuite le planning optimal en quelques secondes, en respectant toutes les règles et en optimisant les coûts. Vous pouvez toujours modifier manuellement le résultat.",
+  },
+  {
+    question: "Est-ce que mes données sont sécurisées ?",
+    answer:
+      "Absolument. Toutes vos données sont chiffrées et stockées de manière sécurisée. Nous respectons le RGPD et ne partageons jamais vos informations avec des tiers. Vos plannings et données d'employés restent privés et confidentiels.",
+  },
+  {
+    question: "Puis-je exporter mes plannings ?",
+    answer:
+      "Oui, vous pouvez exporter vos plannings en PDF (format professionnel avec votre logo), en iCal (pour Google Calendar, Outlook), ou en Excel pour vos logiciels de paie. Les exports sont disponibles pour chaque planning publié.",
+  },
+  {
+    question: "Est-il adapté aux bars / cafés / hôtels ?",
+    answer:
+      "Oui ! ShiftPilot est conçu pour tous les établissements de restauration : restaurants, brasseries, bars, cafés, hôtels avec service F&B. Le système s'adapte à vos horaires spécifiques et à vos besoins en personnel.",
+  },
+  {
     question: "Combien de temps faut-il pour configurer ShiftPilot ?",
     answer:
       "La configuration initiale prend moins de 30 minutes. Vous ajoutez vos employés, définissez vos horaires d'ouverture, et c'est prêt ! Votre premier planning peut être généré en quelques secondes.",
@@ -25,16 +55,6 @@ const faqs = [
     question: "Mes employés peuvent-ils voir leurs plannings ?",
     answer:
       "Oui, une fois le planning publié, vos employés reçoivent une notification et peuvent consulter leurs shifts depuis leur smartphone. Ils peuvent également indiquer leurs disponibilités directement dans l'application.",
-  },
-  {
-    question: "Que se passe-t-il pendant la période d'essai ?",
-    answer:
-      "Pendant 14 jours, vous avez accès à toutes les fonctionnalités sans engagement. Aucune carte bancaire n'est requise. Si ShiftPilot ne vous convient pas, vous pouvez annuler à tout moment sans frais.",
-  },
-  {
-    question: "Puis-je utiliser ShiftPilot pour plusieurs établissements ?",
-    answer:
-      "Oui, selon votre formule, vous pouvez gérer plusieurs établissements depuis un seul compte. Parfait pour les chaînes de restaurants ou les groupes.",
   },
 ]
 
@@ -68,15 +88,15 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-muted/30 transition-colors rounded-xl"
+                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#3b82f6]/10 transition-colors rounded-xl group"
               >
-                <span className="font-semibold text-lg text-foreground pr-8">{faq.question}</span>
+                <span className="font-semibold text-lg text-foreground pr-8 group-hover:text-[#3b82f6] transition-colors">{faq.question}</span>
                 <motion.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                   className="flex-shrink-0"
                 >
-                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                  <ChevronDown className={`h-5 w-5 transition-colors ${openIndex === index ? "text-[#3b82f6]" : "text-muted-foreground"}`} />
                 </motion.div>
               </button>
               <AnimatePresence>

@@ -41,8 +41,8 @@ export function DemoSection() {
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                       activeTab === tab.id
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        ? "bg-[#3b82f6] text-white shadow-md"
+                        : "text-muted-foreground hover:text-[#3b82f6] hover:bg-[#3b82f6]/10"
                     )}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -78,7 +78,7 @@ export function DemoSection() {
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: i * 0.1 }}
-                          className="bg-chart-1 rounded-lg p-3 text-white text-xs text-center"
+                          className="bg-[#3b82f6] rounded-lg p-3 text-white text-xs text-center shadow-sm"
                         >
                           <div className="font-semibold">Midi</div>
                           <div className="text-xs opacity-90">2-3 pers.</div>
@@ -92,7 +92,7 @@ export function DemoSection() {
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: i * 0.1 + 0.2 }}
-                          className="bg-chart-2 rounded-lg p-3 text-white text-xs text-center"
+                          className="bg-[#FF7849] rounded-lg p-3 text-white text-xs text-center shadow-sm"
                         >
                           <div className="font-semibold">Soir</div>
                           <div className="text-xs opacity-90">3-4 pers.</div>
@@ -111,10 +111,10 @@ export function DemoSection() {
                     className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
                     {[
-                      { label: "Staff aujourd'hui", value: "18", color: "bg-chart-1" },
-                      { label: "Heures/semaine", value: "684h", color: "bg-chart-2" },
-                      { label: "Couverture", value: "89%", color: "bg-chart-3" },
-                      { label: "Employés", value: "12", color: "bg-chart-4" },
+                      { label: "Staff aujourd'hui", value: "18", color: "bg-[#3b82f6]" },
+                      { label: "Heures/semaine", value: "684h", color: "bg-[#FF7849]" },
+                      { label: "Couverture", value: "89%", color: "bg-[#3DAD7A]" },
+                      { label: "Employés", value: "12", color: "bg-[#8B5CF6]" },
                     ].map((stat, i) => (
                       <motion.div
                         key={stat.label}
@@ -154,7 +154,7 @@ export function DemoSection() {
                           <div className="font-semibold text-foreground">{emp.name}</div>
                           <div className="text-sm text-muted-foreground">{emp.role}</div>
                         </div>
-                        <Badge variant="secondary" className="bg-accent-green/10 text-accent-green">
+                        <Badge variant="secondary" className="bg-[#3DAD7A]/10 text-[#3DAD7A] border border-[#3DAD7A]/30">
                           <CheckCircle2 className="h-3 w-3 mr-1" />
                           Actif
                         </Badge>

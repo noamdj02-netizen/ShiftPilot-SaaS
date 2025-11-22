@@ -3,7 +3,7 @@
 import type React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Users, Clock, TrendingUp, Shield, ArrowRight, Sparkles, Play, Zap, Calendar } from "lucide-react"
+import { CheckCircle, Users, Clock, TrendingUp, Shield, ArrowRight, Sparkles, Play, Zap, Calendar, Building2, FileText } from "lucide-react"
 import { Logo } from "@/components/logo/logo"
 import { Badge } from "@/components/ui/badge"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -17,12 +17,48 @@ import { MagneticButton } from "@/components/animations/magnetic-button"
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="fixed inset-0 opacity-3 pointer-events-none z-0">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-chart-1 rounded-full blur-3xl" />
+    <div className="min-h-screen premium-restaurant-bg relative overflow-hidden">
+      {/* Premium Background decorations - Subtle & Elegant */}
+      <div className="fixed inset-0 opacity-40 pointer-events-none z-0">
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.2, 0.3, 0.2],
+            x: [0, 50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#FF7849] rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.1, 1, 1.1],
+            opacity: [0.2, 0.3, 0.2],
+            x: [0, -30, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#3DAD7A] rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.25, 0.15],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#3b82f6] rounded-full blur-3xl"
+        />
       </div>
       
       <header className="sticky top-0 z-50 glass border-b border-border/50 shadow-lg backdrop-blur-md">
@@ -54,7 +90,7 @@ export default function LandingPage() {
               </Button>
             </motion.div>
             <MagneticButton strength={0.15}>
-              <Button className="bg-primary hover:bg-primary/90" asChild>
+              <Button className="bg-[#FF7849] hover:bg-[#FF7849]/90 text-white shadow-lg hover:shadow-xl transition-all" asChild>
                 <Link href="/auth-select">Essayer gratuitement</Link>
               </Button>
             </MagneticButton>
@@ -149,7 +185,7 @@ export default function LandingPage() {
                     transition={{ delay: 0.4, type: "spring" }}
                     className="flex items-center gap-3 text-lg lg:text-xl text-muted-foreground"
                   >
-                    <div className="h-1 w-12 bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 rounded-full" />
+                    <div className="h-1 w-12 bg-gradient-to-r from-[#3DAD7A] via-[#3b82f6] to-[#FF7849] rounded-full shadow-sm" />
                     <span>Solution complète pour managers, serveurs et équipes F&B</span>
                   </motion.div>
                 </div>
@@ -173,10 +209,10 @@ export default function LandingPage() {
                   className="grid grid-cols-2 gap-4 max-w-xl"
                 >
                   {[
-                    { label: "Temps gagné", value: "95%", icon: Clock, color: "text-chart-1" },
-                    { label: "Erreurs évitées", value: "100%", icon: Shield, color: "text-chart-2" },
-                    { label: "Satisfaction", value: "4.9/5", icon: TrendingUp, color: "text-chart-3" },
-                    { label: "Restaurants", value: "500+", icon: Users, color: "text-chart-4" },
+                    { label: "Temps gagné", value: "95%", icon: Clock, color: "text-[#3DAD7A]", bgColor: "bg-[#3DAD7A]/10" },
+                    { label: "Erreurs évitées", value: "100%", icon: Shield, color: "text-[#3b82f6]", bgColor: "bg-[#3b82f6]/10" },
+                    { label: "Satisfaction", value: "4.9/5", icon: TrendingUp, color: "text-[#FF7849]", bgColor: "bg-[#FF7849]/10" },
+                    { label: "Restaurants", value: "500+", icon: Users, color: "text-[#8B5CF6]", bgColor: "bg-[#8B5CF6]/10" },
                   ].map((stat, i) => {
                     const Icon = stat.icon
                     return (
@@ -189,7 +225,7 @@ export default function LandingPage() {
                         className="glass border border-border/50 rounded-xl p-4 backdrop-blur-md hover:shadow-xl transition-all duration-300 group"
                       >
                         <div className="flex items-center gap-3 mb-2">
-                          <div className={`p-2 rounded-lg ${stat.color === "text-chart-1" ? "bg-chart-1/10" : stat.color === "text-chart-2" ? "bg-chart-2/10" : stat.color === "text-chart-3" ? "bg-chart-3/10" : "bg-chart-4/10"} ${stat.color}`}>
+                          <div className={`p-2 rounded-lg ${stat.bgColor} ${stat.color} shadow-sm`}>
                             <Icon className="h-4 w-4" />
                           </div>
                           <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
@@ -208,7 +244,7 @@ export default function LandingPage() {
                   className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4"
                 >
                   <MagneticButton strength={0.2}>
-                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 h-14 shadow-xl hover:shadow-2xl transition-all" asChild>
+                    <Button size="lg" className="bg-[#FF7849] hover:bg-[#FF7849]/90 text-white text-lg px-8 h-14 shadow-xl hover:shadow-2xl transition-all" asChild>
                       <Link href="/signup">
                         Commencer gratuitement
                         <ArrowRight className="ml-2 h-5 w-5" />
@@ -216,7 +252,7 @@ export default function LandingPage() {
                     </Button>
                   </MagneticButton>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" variant="glass" className="text-lg px-8 h-14 border-2 border-border/50 backdrop-blur-md hover:shadow-xl transition-all" asChild>
+                    <Button size="lg" variant="glass" className="text-lg px-8 h-14 border-2 border-[#3b82f6] text-[#3b82f6] hover:bg-[#3b82f6]/10 backdrop-blur-md hover:shadow-xl transition-all" asChild>
                       <Link href="#demo">
                         <Play className="mr-2 h-5 w-5" />
                         Voir la démo
@@ -301,13 +337,13 @@ export default function LandingPage() {
                     {/* Services Grid */}
                     <div className="space-y-3">
                       {[
-                        { name: "Service Midi", color: "bg-chart-1", hours: "11h-15h", people: 2 },
-                        { name: "Service Soir", color: "bg-chart-2", hours: "19h-23h", people: 4 },
-                        { name: "Bar", color: "bg-chart-3", hours: "17h-01h", people: 2 },
+                        { name: "Service Midi", color: "bg-[#3b82f6]", hours: "11h-15h", people: 2 },
+                        { name: "Service Soir", color: "bg-[#FF7849]", hours: "19h-23h", people: 4 },
+                        { name: "Bar", color: "bg-[#3DAD7A]", hours: "17h-01h", people: 2 },
                       ].map((service, serviceIndex) => (
                         <div key={service.name} className="space-y-2">
                           <div className="flex items-center gap-2 mb-1">
-                            <div className={`w-2 h-2 rounded-full ${service.color}`} />
+                            <div className={`w-3 h-3 rounded-full ${service.color} shadow-sm`} />
                             <span className="text-xs font-medium text-foreground">{service.name}</span>
                           </div>
                           <div className="grid grid-cols-7 gap-2">
@@ -316,9 +352,15 @@ export default function LandingPage() {
                                 key={dayIndex}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.7 + serviceIndex * 0.1 + dayIndex * 0.03 }}
-                                whileHover={{ scale: 1.1, z: 10 }}
-                                className={`${service.color} rounded-lg p-2 text-white text-[10px] flex flex-col items-center justify-center min-h-[60px] hover:shadow-lg transition-all cursor-pointer group/cell`}
+                                transition={{ 
+                                  delay: 0.7 + serviceIndex * 0.1 + dayIndex * 0.03,
+                                  type: "spring",
+                                  stiffness: 300,
+                                  damping: 25
+                                }}
+                                whileHover={{ scale: 1.05, z: 10 }}
+                                whileTap={{ scale: 0.98 }}
+                                className={`${service.color} rounded-lg p-2 text-white text-[10px] flex flex-col items-center justify-center min-h-[60px] hover:shadow-xl transition-shadow duration-200 cursor-pointer group/cell`}
                               >
                                 <div className="font-semibold">{service.people}-{service.people + 1}</div>
                                 <div className="opacity-80 text-[9px]">{service.hours.split('-')[0]}</div>
@@ -425,20 +467,21 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 max-w-4xl mx-auto">
               {[
-                { label: "Gain de temps", value: "95%", color: "text-accent-green" },
-                { label: "Erreurs évitées", value: "100%", color: "text-accent-green" },
-                { label: "Satisfaction équipe", value: "+80%", color: "text-accent-green" },
+                { label: "Gain de temps", value: "95%", color: "text-[#3DAD7A]", bgColor: "bg-[#3DAD7A]/10", borderColor: "border-[#3DAD7A]/30" },
+                { label: "Erreurs évitées", value: "100%", color: "text-[#3b82f6]", bgColor: "bg-[#3b82f6]/10", borderColor: "border-[#3b82f6]/30" },
+                { label: "Satisfaction équipe", value: "+80%", color: "text-[#FF7849]", bgColor: "bg-[#FF7849]/10", borderColor: "border-[#FF7849]/30" },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="glass px-6 py-3 rounded-xl border border-border/50 backdrop-blur-sm text-center"
+                  transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 25 }}
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  className={`glass px-6 py-4 rounded-xl border-2 ${stat.borderColor} backdrop-blur-sm text-center ${stat.bgColor} shadow-lg hover:shadow-xl transition-all`}
                 >
-                  <div className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className={`text-3xl font-bold ${stat.color} mb-2`}>{stat.value}</div>
+                  <div className="text-sm font-medium text-foreground">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -449,11 +492,14 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
               whileHover={{ scale: 1.02, x: 4 }}
-              className="glass border-2 border-destructive/30 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="glass border-2 border-[#991B1B]/50 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-[#991B1B]/5 to-card/80"
             >
-              <div className="text-destructive font-bold text-sm mb-4">AVANT</div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-3 h-3 rounded-full bg-[#991B1B] shadow-sm"></div>
+                <div className="text-[#991B1B] font-bold text-sm">AVANT</div>
+              </div>
               <h3 className="text-2xl font-bold mb-6 text-foreground">Excel + WhatsApp</h3>
               <ul className="space-y-4">
                 {[
@@ -464,11 +510,11 @@ export default function LandingPage() {
                   "Temps de travail non comptabilisé",
                   "Stress permanent du manager",
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                    <div className="h-5 w-5 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-destructive text-xs">✕</span>
+                  <li key={i} className="flex items-start gap-3 text-foreground">
+                    <div className="h-5 w-5 rounded-full bg-[#991B1B]/20 border-2 border-[#991B1B]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-[#991B1B] text-xs font-bold">✕</span>
                     </div>
-                    <span>{item}</span>
+                    <span className="font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -478,11 +524,14 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
               whileHover={{ scale: 1.02, x: -4 }}
-              className="glass border-2 border-accent-green/50 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="glass border-2 border-[#3DAD7A]/50 rounded-2xl p-8 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-[#3DAD7A]/5 to-card/80"
             >
-              <div className="text-accent-green font-bold text-sm mb-4">APRÈS</div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-3 h-3 rounded-full bg-[#3DAD7A] shadow-sm"></div>
+                <div className="text-[#3DAD7A] font-bold text-sm">APRÈS</div>
+              </div>
               <h3 className="text-2xl font-bold mb-6 text-foreground">Avec ShiftPilot</h3>
               <ul className="space-y-4">
                 {[
@@ -494,8 +543,10 @@ export default function LandingPage() {
                   "Sérénité retrouvée",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-foreground">
-                    <CheckCircle className="h-5 w-5 text-accent-green flex-shrink-0 mt-0.5" />
-                    <span className="font-medium">{item}</span>
+                    <div className="h-5 w-5 rounded-full bg-[#3DAD7A]/20 border-2 border-[#3DAD7A]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle className="h-4 w-4 text-[#3DAD7A]" />
+                    </div>
+                    <span className="font-semibold">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -545,46 +596,46 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
             <FeatureCard
-              icon={<Clock className="h-8 w-8" />}
-              title="Service Midi / Soir"
-              description="Organisez vos deux services quotidiens avec des plannings dédiés. Gérez les coupures légalement."
-              details={["Plannings séparés midi/soir", "Gestion automatique des coupures", "Optimisation des chevauchements"]}
-              color="bg-chart-1"
-            />
-            <FeatureCard
-              icon={<Users className="h-8 w-8" />}
-              title="Rôles Métiers"
-              description="Serveur, Barman, Runner, Commis, Chef de rang... Assignez les bonnes personnes aux bons postes."
-              details={["8+ rôles préconfigurés", "Affectation intelligente par compétences", "Gestion des polyvalences"]}
-              color="bg-chart-2"
-            />
-            <FeatureCard
-              icon={<Shield className="h-8 w-8" />}
-              title="Conformité Légale"
-              description="Respect automatique des 11h de repos, coupures, heures sup et conventions collectives HCR."
-              details={["11h de repos garanti", "Alertes automatiques", "Conventions HCR intégrées"]}
-              color="bg-chart-3"
+              icon={<Sparkles className="h-8 w-8" />}
+              title="Planning assisté par IA"
+              description="Notre intelligence artificielle génère automatiquement le planning optimal en analysant vos contraintes, l'affluence prévue et les compétences de votre équipe."
+              details={["Génération en quelques secondes", "Optimisation automatique des coûts", "Respect des contraintes légales"]}
+              color="bg-[#FF7849]"
             />
             <FeatureCard
               icon={<TrendingUp className="h-8 w-8" />}
-              title="Équité des Heures"
-              description="Évitez les extras abusifs. Distribuez équitablement les heures entre votre équipe permanente."
-              details={["Répartition automatique équitable", "Suivi des heures par employé", "Alertes déséquilibres"]}
-              color="bg-chart-4"
+              title="Optimisation des coûts"
+              description="Réduisez vos coûts de personnel jusqu'à 20% en optimisant automatiquement la répartition des heures et en évitant les sur-effectifs."
+              details={["Analyse des coûts en temps réel", "Suggestions d'optimisation", "Prédiction budgétaire"]}
+              color="bg-[#3DAD7A]"
             />
             <FeatureCard
-              icon={<Calendar className="h-8 w-8" />}
-              title="Disponibilités"
-              description="Vos employés indiquent leurs dispos. Le planning s'adapte automatiquement à vos contraintes."
-              details={["Calendrier des disponibilités", "Préférences personnalisées", "Adaptation automatique"]}
-              color="bg-chart-1"
+              icon={<Users className="h-8 w-8" />}
+              title="Anti-rupture équipe"
+              description="Détectez et prévenez automatiquement les sous-effectifs. Recevez des alertes intelligentes avant qu'il ne soit trop tard."
+              details={["Alertes proactives", "Détection des manques", "Suggestions de remplacement"]}
+              color="bg-[#3b82f6]"
             />
             <FeatureCard
-              icon={<Sparkles className="h-8 w-8" />}
-              title="Génération IA"
-              description="L'IA crée le planning optimal en fonction de l'affluence prévue, des compétences et des préférences."
-              details={["Optimisation intelligente", "Prédiction d'affluence", "Suggestions en temps réel"]}
-              color="bg-accent"
+              icon={<Clock className="h-8 w-8" />}
+              title="Gestion live des absences"
+              description="Gérez les absences en temps réel. Réorganisez automatiquement les shifts et notifiez votre équipe instantanément."
+              details={["Gestion immédiate", "Réorganisation automatique", "Notifications instantanées"]}
+              color="bg-[#8B5CF6]"
+            />
+            <FeatureCard
+              icon={<Building2 className="h-8 w-8" />}
+              title="Multi-sites & multi-postes"
+              description="Gérez plusieurs établissements et postes depuis un seul tableau de bord. Parfait pour les chaînes et groupes."
+              details={["Gestion centralisée", "Synchronisation multi-sites", "Vue d'ensemble globale"]}
+              color="bg-[#DAA520]"
+            />
+            <FeatureCard
+              icon={<FileText className="h-8 w-8" />}
+              title="Export PDF du planning"
+              description="Exportez vos plannings en PDF professionnel, prêts à être affichés ou envoyés. Format personnalisable avec votre logo."
+              details={["Export PDF haute qualité", "Personnalisation logo", "Envoi automatique par email"]}
+              color="bg-[#991B1B]"
             />
           </div>
 
@@ -786,6 +837,8 @@ export default function LandingPage() {
               description="Idéal pour cafés et petits restaurants"
               features={["Jusqu'à 15 employés", "Planning midi & soir", "Génération IA basique", "Support email"]}
               savings="Économisez 10h/semaine"
+              color="bg-[#3b82f6]"
+              borderColor="border-[#3b82f6]/50"
             />
             <PricingCard
               name="Brasserie"
@@ -799,6 +852,8 @@ export default function LandingPage() {
               ]}
               popular
               savings="Économisez 20h/semaine"
+              color="bg-[#FF7849]"
+              borderColor="border-[#FF7849]/50"
             />
             <PricingCard
               name="Groupe"
@@ -811,6 +866,8 @@ export default function LandingPage() {
                 "Support dédié 24/7",
               ]}
               savings="ROI sur mesure"
+              color="bg-[#8B5CF6]"
+              borderColor="border-[#8B5CF6]/50"
             />
           </div>
 
@@ -829,22 +886,22 @@ export default function LandingPage() {
                   <tr className="border-b border-border/50">
                     <th className="text-left py-4 px-4 font-semibold text-foreground">Fonctionnalités</th>
                     <th className="text-center py-4 px-4 font-semibold text-foreground">Petit Resto</th>
-                    <th className="text-center py-4 px-4 font-semibold text-foreground bg-accent/10">Brasserie</th>
+                    <th className="text-center py-4 px-4 font-semibold text-foreground bg-[#FF7849]/10 border-2 border-[#FF7849]/30">Brasserie</th>
                     <th className="text-center py-4 px-4 font-semibold text-foreground">Groupe</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    { feature: "Nombre d'employés", starter: "Jusqu'à 15", pro: "Jusqu'à 50", enterprise: "Illimité" },
-                    { feature: "Plannings mensuels", starter: "Illimité", pro: "Illimité", enterprise: "Illimité" },
-                    { feature: "Génération IA", starter: "Basique", pro: "Avancée", enterprise: "Personnalisée" },
-                    { feature: "Multi-établissements", starter: "—", pro: "2 lieux", enterprise: "Illimité" },
-                    { feature: "Analytics & Rapports", starter: "—", pro: "✓", enterprise: "✓ Premium" },
-                    { feature: "Export PDF/iCal", starter: "✓", pro: "✓", enterprise: "✓ + Excel" },
-                    { feature: "Templates de plannings", starter: "3", pro: "Illimité", enterprise: "Illimité" },
-                    { feature: "Notifications Email/SMS", starter: "✓", pro: "✓", enterprise: "✓ Premium" },
-                    { feature: "Support", starter: "Email", pro: "Prioritaire", enterprise: "Dédié 24/7" },
-                    { feature: "Intégrations", starter: "—", pro: "Google Calendar", enterprise: "Toutes les APIs" },
+                    { feature: "Nombre d'employés", starter: "Jusqu'à 15", pro: "Jusqu'à 50", enterprise: "Illimité", proColor: "text-[#FF7849]" },
+                    { feature: "Plannings mensuels", starter: "Illimité", pro: "Illimité", enterprise: "Illimité", proColor: "text-[#FF7849]" },
+                    { feature: "Génération IA", starter: "Basique", pro: "Avancée", enterprise: "Personnalisée", proColor: "text-[#FF7849] font-semibold" },
+                    { feature: "Multi-établissements", starter: "—", pro: "2 lieux", enterprise: "Illimité", proColor: "text-[#FF7849]" },
+                    { feature: "Analytics & Rapports", starter: "—", pro: "✓", enterprise: "✓ Premium", proColor: "text-[#3DAD7A]" },
+                    { feature: "Export PDF/iCal", starter: "✓", pro: "✓", enterprise: "✓ + Excel", proColor: "text-[#3DAD7A]" },
+                    { feature: "Templates de plannings", starter: "3", pro: "Illimité", enterprise: "Illimité", proColor: "text-[#FF7849] font-semibold" },
+                    { feature: "Notifications Email/SMS", starter: "✓", pro: "✓", enterprise: "✓ Premium", proColor: "text-[#3DAD7A]" },
+                    { feature: "Support", starter: "Email", pro: "Prioritaire", enterprise: "Dédié 24/7", proColor: "text-[#FF7849] font-semibold" },
+                    { feature: "Intégrations", starter: "—", pro: "Google Calendar", enterprise: "Toutes les APIs", proColor: "text-[#3b82f6]" },
                   ].map((row, i) => (
                     <motion.tr
                       key={i}
@@ -856,7 +913,7 @@ export default function LandingPage() {
                     >
                       <td className="py-4 px-4 text-foreground font-medium">{row.feature}</td>
                       <td className="py-4 px-4 text-center text-muted-foreground">{row.starter}</td>
-                      <td className="py-4 px-4 text-center text-foreground font-semibold bg-accent/5">{row.pro}</td>
+                      <td className={`py-4 px-4 text-center font-semibold bg-[#FF7849]/5 ${row.proColor || "text-foreground"}`}>{row.pro}</td>
                       <td className="py-4 px-4 text-center text-foreground">{row.enterprise}</td>
                     </motion.tr>
                   ))}
@@ -865,7 +922,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-8 text-center">
               <MagneticButton strength={0.15}>
-                <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+                <Button size="lg" className="bg-[#FF7849] hover:bg-[#FF7849]/90 text-white shadow-lg hover:shadow-xl transition-all" asChild>
                   <Link href="/signup">Commencer l'essai gratuit</Link>
                 </Button>
               </MagneticButton>
@@ -969,7 +1026,7 @@ export default function LandingPage() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <MagneticButton strength={0.15}>
-                <Button size="lg" variant="secondary" className="text-lg px-8 h-14" asChild>
+                <Button size="lg" className="bg-[#3DAD7A] hover:bg-[#3DAD7A]/90 text-white text-lg px-8 h-14 shadow-lg hover:shadow-xl transition-all" asChild>
                   <Link href="/signup">
                     Essayer 14 jours gratuitement
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -1146,6 +1203,8 @@ function PricingCard({
   features,
   popular,
   savings,
+  color = "bg-[#3b82f6]",
+  borderColor = "border-[#3b82f6]/50",
 }: {
   name: string
   price: string
@@ -1153,6 +1212,8 @@ function PricingCard({
   features: string[]
   popular?: boolean
   savings?: string
+  color?: string
+  borderColor?: string
 }) {
   return (
     <motion.div
@@ -1163,15 +1224,15 @@ function PricingCard({
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       className={`glass border-2 rounded-2xl p-8 relative transition-all duration-300 overflow-hidden group backdrop-blur-md ${
         popular 
-          ? "border-accent/50 shadow-2xl scale-105 bg-gradient-to-br from-accent/10 to-card/80" 
-          : "border-border/50"
+          ? `${borderColor} shadow-2xl scale-105 bg-gradient-to-br ${color}/10 to-card/80` 
+          : `${borderColor}`
       }`}
     >
-      {popular && (
+        {popular && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-lg"
+          className={`absolute -top-4 left-1/2 -translate-x-1/2 ${color} text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg`}
         >
           Populaire
         </motion.div>
@@ -1187,7 +1248,14 @@ function PricingCard({
             viewport={{ once: true }}
             className="mb-4"
           >
-            <div className="inline-flex items-center gap-2 bg-accent-green/10 text-accent-green px-3 py-1 rounded-full text-xs font-semibold">
+            <div 
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border"
+              style={{ 
+                backgroundColor: color.replace('bg-', '').replace('[', '').replace(']', '') + '1A',
+                borderColor: borderColor.replace('border-', '').replace('[', '').replace(']', '').replace('/50', ''),
+                color: color.replace('bg-', '').replace('[', '').replace(']', '')
+              }}
+            >
               <Clock className="h-3 w-3" />
               {savings}
             </div>
@@ -1218,8 +1286,16 @@ function PricingCard({
               <motion.div
                 whileHover={{ scale: 1.2, rotate: 360 }}
                 transition={{ duration: 0.3 }}
+                className="h-5 w-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5"
+                style={{ 
+                  backgroundColor: color.replace('bg-', '').replace('[', '').replace(']', '') + '33',
+                  borderColor: borderColor.replace('border-', '').replace('[', '').replace(']', '').replace('/50', '')
+                }}
               >
-                <CheckCircle className="h-5 w-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <CheckCircle 
+                  className="h-4 w-4" 
+                  style={{ color: color.replace('bg-', '').replace('[', '').replace(']', '') }}
+                />
               </motion.div>
               <span className="text-sm text-foreground">{feature}</span>
             </motion.li>
@@ -1227,7 +1303,12 @@ function PricingCard({
         </ul>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button
-            className={`w-full ${popular ? "bg-accent hover:bg-accent/90" : ""}`}
+            className={`w-full ${popular ? "text-white border-0" : ""}`}
+            style={popular ? {
+              backgroundColor: color.replace('bg-', '').replace('[', '').replace(']', ''),
+            } : {
+              borderColor: borderColor.replace('border-', '').replace('[', '').replace(']', '').replace('/50', '')
+            }}
             variant={popular ? "default" : "outline"}
             asChild
           >

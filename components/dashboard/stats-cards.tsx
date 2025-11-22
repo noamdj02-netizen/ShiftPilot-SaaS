@@ -109,8 +109,8 @@ export function StatsCards() {
           icon: Users,
           change: todayStaffCount > 0 ? "Complet" : "À planifier",
           trend: todayStaffCount > 0 ? "success" : "warning",
-          color: "text-accent-green",
-          bgColor: "bg-accent-green/10",
+          color: "text-[#3DAD7A]",
+          bgColor: "bg-[#3DAD7A]/10",
         },
         {
           title: "Employés actifs",
@@ -119,8 +119,8 @@ export function StatsCards() {
           icon: Users,
           change: employees.length > 0 ? "Actif" : "Aucun",
           trend: employees.length > 0 ? "success" : "warning",
-          color: "text-chart-2",
-          bgColor: "bg-chart-2/10",
+          color: "text-[#3b82f6]",
+          bgColor: "bg-[#3b82f6]/10",
         },
         {
           title: "Plannings actifs",
@@ -129,8 +129,8 @@ export function StatsCards() {
           icon: Calendar,
           change: "+2 ce mois",
           trend: "up",
-          color: "text-chart-1",
-          bgColor: "bg-chart-1/10",
+          color: "text-[#FF7849]",
+          bgColor: "bg-[#FF7849]/10",
         },
         {
           title: "Heures cette semaine",
@@ -140,8 +140,8 @@ export function StatsCards() {
           icon: Clock,
           change: `${Math.round((totalHours / (employees.length * 35 || 1)) * 100)}% utilisé`,
           trend: "up",
-          color: "text-chart-4",
-          bgColor: "bg-chart-4/10",
+          color: "text-[#8B5CF6]",
+          bgColor: "bg-[#8B5CF6]/10",
         },
       ])
     } catch (error) {
@@ -174,8 +174,9 @@ export function StatsCards() {
             key={stat.title}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: index * 0.05, duration: 0.4, type: "spring", stiffness: 100 }}
-            whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.2 } }}
+            transition={{ delay: index * 0.03, duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
+            whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.15, type: "spring", stiffness: 400 } }}
+            whileTap={{ scale: 0.98 }}
           >
             <Card 
               variant="glass" 

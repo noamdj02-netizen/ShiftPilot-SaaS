@@ -80,7 +80,7 @@ export function DashboardHeader() {
         ? "Service Soir"
         : "Hors service"
   const serviceColor =
-    currentService === "Service Midi" ? "bg-chart-1" : currentService === "Service Soir" ? "bg-chart-2" : "bg-muted"
+    currentService === "Service Midi" ? "bg-[#3b82f6]" : currentService === "Service Soir" ? "bg-[#FF7849]" : "bg-muted"
 
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
@@ -116,14 +116,14 @@ export function DashboardHeader() {
           
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
-            <span className="absolute top-1 right-1 h-2 w-2 bg-accent rounded-full animate-pulse" />
+            <span className="absolute top-1 right-1 h-2 w-2 bg-[#FF7849] rounded-full animate-pulse shadow-sm" />
           </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="gap-2" disabled={isLoading}>
-                <Avatar className="h-8 w-8 bg-primary">
-                  <AvatarFallback className="bg-primary text-primary-foreground">
+                <Avatar className="h-8 w-8 bg-[#3b82f6]">
+                  <AvatarFallback className="bg-[#3b82f6] text-white">
                     {user ? getInitials(user.companyName) : "..."}
                   </AvatarFallback>
                 </Avatar>

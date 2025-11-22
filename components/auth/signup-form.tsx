@@ -159,8 +159,12 @@ export function SignupForm() {
             )}
           </AnimatePresence>
 
-          <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-            <Button type="submit" className="w-full h-11 bg-accent hover:bg-accent/90" disabled={isLoading}>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button 
+              type="submit" 
+              className="w-full h-11 bg-[#FF7849] hover:bg-[#FF7849]/90 text-white shadow-lg hover:shadow-xl transition-all" 
+              disabled={isLoading}
+            >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -176,11 +180,11 @@ export function SignupForm() {
 
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
             En créant un compte, vous acceptez nos{" "}
-            <a href="#" className="text-accent hover:underline">
+            <a href="#" className="text-[#FF7849] hover:text-[#FF7849]/80 hover:underline font-medium">
               Conditions d'utilisation
             </a>{" "}
             et notre{" "}
-            <a href="#" className="text-accent hover:underline">
+            <a href="#" className="text-[#FF7849] hover:text-[#FF7849]/80 hover:underline font-medium">
               Politique de confidentialité
             </a>
           </p>

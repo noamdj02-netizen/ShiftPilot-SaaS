@@ -188,7 +188,7 @@ export function DraggableDashboard({
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 25 }}
           className="lg:col-span-2 space-y-6 min-h-[200px]"
         >
           <SortableContext items={leftColumn} strategy={verticalListSortingStrategy}>
@@ -204,7 +204,7 @@ export function DraggableDashboard({
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 25 }}
           className="space-y-6 min-h-[200px]"
         >
           <SortableContext items={rightColumn} strategy={verticalListSortingStrategy}>
